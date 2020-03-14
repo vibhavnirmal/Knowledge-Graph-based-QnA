@@ -35,7 +35,7 @@ class Complexx:
         if subject and object:
             subject, subject_type = self.prepro.refine_ent(subject, sentence)
             object, object_type = self.prepro.refine_ent(object, sentence)
-            # print(subject, object, "OLOOOOO")
+            # print(subject_type, "OLOOOOO")
 
         self.ent_pairs.append([str(subject), str(relation), str(object), str(subject_type), str(object_type)])
         # print(self.ent_pairs, "HOLAAAA")
@@ -71,7 +71,7 @@ class Complexx:
 
         for n in object_list:
             n, object_type = self.prepro.refine_ent(n, sentence)
-            pb.append([n, subject_type])
+            pb.append([n, object_type])
         # print(pb)
 
         # print(object, subject, relation)
@@ -79,7 +79,7 @@ class Complexx:
         # print(object_list)
         for m in range(0, len(subject_list)):
             for n in range(0, len(object_list)):
-                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str(subject_type), str(object_type)])
+                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str(pa[n][1]), str(pb[n][1])])
                 # print("Hello")
 
         # print(self.ent_pairs)

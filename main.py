@@ -19,54 +19,42 @@ class mainFunc:
         self.nlp = spacy.load('en_core_web_sm')
         neuralcoref.add_to_pipe(self.nlp)
 
-    def check_for_and_(self, sentence):
+    def check_for_multi_and_(self, sentence):
         x = []
         count = 0
         for word in sentence:
+            # print([i for i in word.subtree])
             count += 1
             if word.dep_ in ('cc'):
-                p1 = count-1
-                x.append(p1)
+                x.append(count-1)
+                # print([i for i in word.head.rights if i.dep_ in ('obj', 'dobj', 'pobj')])
+                # print([i for i in word.head.rights if i.dep_ in ('nsubj', 'nsubjpass', 'subj')])
+                # print([i for i in word.head.rights if i.dep_ in ('conj')])
         # print(x)
 
         depen = []
         for i in x:
             depen.append([word.dep_ for word in sentence[:i]])
 
-        # print(depen)
-        newcount = -1
         senten1, senten2 = "", ""
-        # , ["subj", "ROOT", "dobj"], ["subj", "ROOT", "pobj"], ["nsubj", "ROOT", "obj"], ["nsubj", "ROOT", "dobj"], ["nsubj", "ROOT", "pobj"], ["nsubjpass", "ROOT", "obj"], ["nsubjpass", "ROOT", "dobj"], ["nsubjpass", "ROOT", "pobj"]]
         list2 = ["nsubj", "ROOT", "dobj"]
+        # , ["subj", "ROOT", "dobj"], ["subj", "ROOT", "pobj"], ["nsubj", "ROOT", "obj"], ["nsubj", "ROOT", "dobj"], ["nsubj", "ROOT", "pobj"], ["nsubjpass", "ROOT", "obj"], ["nsubjpass", "ROOT", "dobj"], ["nsubjpass", "ROOT", "pobj"]]
 
-        for i in depen:
-            newcount += 1
-            list1 = i
+        for list1 in depen:
             check = all(item in list1 for item in list2)
-            # print(check)
+            #
+            # print(list1)
 
             if check:
-                return True
+                print(depen, x)
+                return True, depen, x
             else:
                 pass
 
+        return False, [], 0
 
-    def diff_sent_return(self, sentence):
 
-        x = []
-        count = 0
-        for word in sentence:
-            count += 1
-            if word.dep_ in ('cc'):
-                p1 = count-1
-                x.append(p1)
-        # print(x)
-
-        depen = []
-        for i in x:
-            depen.append([word.dep_ for word in sentence[:i]])
-
-        # print(depen)
+    def diff_sent_return(self, sentence, depen, pos_of_and):
         newcount = -1
         senten1, senten2 = "", ""
         # , ["subj", "ROOT", "dobj"], ["subj", "ROOT", "pobj"], ["nsubj", "ROOT", "obj"], ["nsubj", "ROOT", "dobj"], ["nsubj", "ROOT", "pobj"], ["nsubjpass", "ROOT", "obj"], ["nsubjpass", "ROOT", "dobj"], ["nsubjpass", "ROOT", "pobj"]]
@@ -79,18 +67,16 @@ class mainFunc:
             if check:
                 lista = [str(w) for w in sentence]
 
-                p1 = lista[:x[newcount]]
-                p2 = lista[x[newcount]+1:]
+                p1 = lista[:pos_of_and[newcount]]
+                p2 = lista[pos_of_and[newcount]+1:]
+
+                # print(p1, p2)
 
                 senten1 = " ".join(p1)
                 senten2 = " ".join(p2)
 
                 senten1 = self.nlp(senten1)
                 senten2 = self.nlp(senten2)
-
-                # print(senten1)
-                # print(senten2)
-                # break
 
         return str(senten1), str(senten2)
 
@@ -109,44 +95,42 @@ class mainFunc:
         # print(self.nlp(text._.coref_resolved))
 
         sentences = [sent.string.strip() for sent in text.sents]  # split text into sentences
-        print(sentences)
-        count3 = 0
+        # print(sentences)
 
         for sent in sentences:
             sent = self.nlp(sent)
-            checked_for_and = self.check_for_and_(sent)
-            print(checked_for_and)
+            # self.going_from_root(sent, True, False, False)
+            checked_for_and , depend , pos_of_and_= self.check_for_multi_and_(sent)
+            # print(checked_for_and)
 
             if checked_for_and:
-                sent1, sent2 = self.diff_sent_return(sent)
+                sent1, sent2 = self.diff_sent_return(sent, depend, pos_of_and_)
                 # print(sent1, sent2)
                 text = str(sent1) + ". " +str(sent2)
                 text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
                 text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
                 text = self.nlp(text)
-                sent = self.nlp(text._.coref_resolved)
+                # sent = self.nlp(text._.coref_resolved)
+                #
+                # mko = sent
 
-                mko = sent
+                sent = str(self.nlp(text._.coref_resolved)).split(".")
+                # print(sentgg)
 
-                sentgg = str(mko).split(".")
+                for i in sent:
+                    new_m_sent = self.nlp(i)
 
-                for i in sentgg:
-                    count3 = count3 + 1
-                    newio = self.nlp(i)
+                    dep = [token.dep_ for token in new_m_sent]
+                    print(dep)
 
-                    print(newio)
-                    dep = [token.dep_ for token in newio]
-                    # print(dep)
-
-                    ent_pairs , object_che = self.util.which_sent(dep, newio)
-                    # print(ent_pairs)
+                    ent_pairs , object_che = self.util.which_sent(dep, new_m_sent)
 
                     self.final_ent_pairs(ent_pairs, object_che)
 
             else:
                 spans = list(sent.ents) + list(sent.noun_chunks)  # collect nodes
                 spans = spacy.util.filter_spans(spans)
-                print(spans)
+                # print(spans)
                 with sent.retokenize() as retokenizer:
                     [retokenizer.merge(span) for span in spans]
 
@@ -154,7 +138,7 @@ class mainFunc:
                 print(dep)
 
                 ent_pairs , object_che = self.util.which_sent(dep, sent)
-                print(ent_pairs)
+                # print(ent_pairs)
 
                 self.final_ent_pairs(ent_pairs, object_che)
 

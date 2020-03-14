@@ -14,25 +14,25 @@ class Utility:
 
     def which_sent(self, dep, sent):
         dep_count = self.prepro.count_subj_obj(dep)
-        print(dep, sent)
+        # print(dep, sent)
 
         conjcnt = dep_count['conj_cnt']
         subjcnt = dep_count['subj_cnt']
         objcnt = dep_count['obj_cnt']
 
         if ((objcnt == 1) and (subjcnt == 1)) and (conjcnt <= 0):
-            print("SUB+OBJ")
+            print("Sentence contains only one SUBJECT and OBJECT")
             normal_sent_ = self.complex.normal_sent(sent)
             for pair in normal_sent_:
                 self.ent_pairs.append(pair)
             # print(ent_pairs)
         elif ((subjcnt == 1) and (objcnt == 0)):
-            print("SUBJ")
+            print("Sentence contains only SUBJECT and RELATION")
             object_che = False
             no_obj_ = self.complex.no_object(sent)
             self.ent_pairs.append(no_obj_[0])
         elif ((subjcnt == 1) and (objcnt == 1) and (conjcnt >= 1)):
-            print("SUBJ+OBJ+Multi")
+            print("Sentence contains Multiple SUBJECTs and OBJECTs")
             mult_subj_obj_ = self.complex.multi_obj_subj_list(sent)
             for pair in mult_subj_obj_:
                 self.ent_pairs.append(pair)
