@@ -139,19 +139,19 @@ class mainFunc:
 
                 ent_pairs , object_che = self.util.which_sent(dep, sent)
                 # print(ent_pairs)
-
                 self.final_ent_pairs(ent_pairs, object_che)
+
 
 
     def final_ent_pairs(self, ent_pairs, object_che):
         filtered_entpairs = [sublist for sublist in ent_pairs if not any(str(x) == '' for x in sublist)]
 
-        if object_che == False:
-            pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
-        elif object_che == True:
-            pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'object', 'subject_type', 'object_type'])
-        else:
-            pass
+        # if object_che == False:
+        #     pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
+        # elif object_che == True:
+        pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'object', 'subject_type', 'object_type'])
+        # else:
+        #     pass
 
         print('Entity pairs extracted:', str(len(filtered_entpairs)))
         print(pairs)
