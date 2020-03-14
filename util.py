@@ -14,7 +14,7 @@ class Utility:
 
     def which_sent(self, dep, sent):
         dep_count = self.prepro.count_subj_obj(dep)
-        # print(dep, sent)
+        print(dep, sent)
 
         conjcnt = dep_count['conj_cnt']
         subjcnt = dep_count['subj_cnt']
