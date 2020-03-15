@@ -20,19 +20,19 @@ class Utility:
         subjcnt = dep_count['subj_cnt']
         objcnt = dep_count['obj_cnt']
 
-        for i in sent:
-            print(i.pos_)
-            if i.dep_ in ('obj', 'dobj', 'pobj'):
-                if i.nbor(1).dep_ in ('prep'):
-                    if i.nbor(2).dep_ in ('pobj'):
-                        multi_obj_new_pair = self.complex.two_verbs(sent)
-                        for pair in multi_obj_new_pair:
-                            self.ent_pairs.append(pair)
-
-        for i in sent:
-            if i.dep_ in ('obj', 'dobj', 'pobj'):
-                if i.nbor(1).dep_ in ('nmod'):
-                    print(i)
+        # for i in sent:
+        #     print(i.pos_)
+        #     if i.dep_ in ('obj', 'dobj', 'pobj'):
+        #         if i.nbor(1).dep_ in ('prep'):
+        #             if i.nbor(2).dep_ in ('pobj'):
+        #                 multi_obj_new_pair = self.complex.two_verbs(sent)
+        #                 for pair in multi_obj_new_pair:
+        #                     self.ent_pairs.append(pair)
+        #
+        # for i in sent:
+        #     if i.dep_ in ('obj', 'dobj', 'pobj'):
+        #         if i.nbor(1).dep_ in ('nmod'):
+        #             print(i)
 
         if ((objcnt == 1) and (subjcnt == 1)) and (conjcnt <= 0):
             print("Sentence contains only one SUBJECT and OBJECT")

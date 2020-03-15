@@ -96,50 +96,54 @@ class mainFunc:
 
         sentences = [sent.string.strip() for sent in text.sents]  # split text into sentences
         # print(sentences)
-
+        gfinal_pair = []
         for sent in sentences:
             sent = self.nlp(sent)
             # self.going_from_root(sent, True, False, False)
-            checked_for_and , depend , pos_of_and_= self.check_for_multi_and_(sent)
+            # checked_for_and , depend , pos_of_and_= self.check_for_multi_and_(sent)
             # print(checked_for_and)
 
-            if checked_for_and:
-                sent1, sent2 = self.diff_sent_return(sent, depend, pos_of_and_)
-                # print(sent1, sent2)
-                text = str(sent1) + ". " +str(sent2)
-                text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
-                text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
-                text = self.nlp(text)
-                # sent = self.nlp(text._.coref_resolved)
-                #
-                # mko = sent
+            # if checked_for_and:
+            #     sent1, sent2 = self.diff_sent_return(sent, depend, pos_of_and_)
+            #     # print(sent1, sent2)
+            #     text = str(sent1) + ". " +str(sent2)
+            #     text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
+            #     text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
+            #     text = self.nlp(text)
+            #     # sent = self.nlp(text._.coref_resolved)
+            #     #
+            #     # mko = sent
+            #
+            #     sent = str(self.nlp(text._.coref_resolved)).split(".")
+            #     # print(sentgg)
+            #
+            #     for i in sent:
+            #         new_m_sent = self.nlp(i)
+            #
+            #         dep = [token.dep_ for token in new_m_sent]
+            #         print(dep)
+            #
+            #         ent_pairs , object_che = self.util.which_sent(dep, new_m_sent)
+            #
+            #         self.final_ent_pairs(ent_pairs, object_che)
 
-                sent = str(self.nlp(text._.coref_resolved)).split(".")
-                # print(sentgg)
-
-                for i in sent:
-                    new_m_sent = self.nlp(i)
-
-                    dep = [token.dep_ for token in new_m_sent]
-                    print(dep)
-
-                    ent_pairs , object_che = self.util.which_sent(dep, new_m_sent)
-
-                    self.final_ent_pairs(ent_pairs, object_che)
-
-            else:
-                spans = list(sent.ents) + list(sent.noun_chunks)  # collect nodes
-                spans = spacy.util.filter_spans(spans)
+            # else:
+            spans = list(sent.ents) + list(sent.noun_chunks)  # collect nodes
+            spans = spacy.util.filter_spans(spans)
                 # print(spans)
-                with sent.retokenize() as retokenizer:
-                    [retokenizer.merge(span) for span in spans]
+            with sent.retokenize() as retokenizer:
+                [retokenizer.merge(span) for span in spans]
 
-                dep = [token.dep_ for token in sent]
-                print(dep)
+            dep = [token.dep_ for token in sent]
+            print(dep)
 
-                ent_pairs , object_che = self.util.which_sent(dep, sent)
-                # print(ent_pairs)
-                self.final_ent_pairs(ent_pairs, object_che)
+            ent_pairs , object_che = self.util.which_sent(dep, sent)
+            # print(ent_pairs)
+            gfinal_pair = []
+
+            gfinal_pair.append(self.final_ent_pairs(ent_pairs, object_che))
+
+        return gfinal_pair
 
 
 
@@ -149,9 +153,9 @@ class mainFunc:
         # if object_che == False:
         #     pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
         # elif object_che == True:
-        pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'object', 'subject_type', 'object_type'])
+        pairs = pd.DataFrame(filtered_entpairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type'])
         # else:
         #     pass
 
         print('Entity pairs extracted:', str(len(filtered_entpairs)))
-        print(pairs)
+        return pairs

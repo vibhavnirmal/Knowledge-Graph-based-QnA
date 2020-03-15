@@ -10,7 +10,7 @@ class Prepro:
         self.conj_dep = {}
 
     def count_subj_obj(self, dep):
-        obj_cnt = dep.count('obj')+dep.count('dobj')+dep.count('pobj')+dep.count('advmod')
+        obj_cnt = dep.count('obj')+dep.count('dobj')+dep.count('pobj')
         subj_cnt = dep.count('subj')+dep.count('nsubj')+dep.count('nsubjpass')
         conj_cnt = dep.count('conj')
         self.conj_dep = {'obj_cnt':obj_cnt, 'subj_cnt':subj_cnt,'conj_cnt':conj_cnt}

@@ -21,7 +21,7 @@ class Complexx:
     def normal_sent(self, sentence):
         """ Here goes subject relation object Example: Someone plays cricket. """
         for object in sentence:
-            if object.dep_ in ('obj', 'dobj', 'pobj','advmod'):
+            if object.dep_ in ('obj', 'dobj', 'pobj'):
                 object_che = True
 
                 relation = [w for w in object.ancestors if w.dep_ =='ROOT']
@@ -49,8 +49,8 @@ class Complexx:
                 else:
                     relation = 'unknown'
 
-                self.ent_pairs = []
                 object, object_type = self.prepro.refine_ent(object, sentence)
+                self.ent_pairs = []
                 print(object, subject, relation)
                 self.ent_pairs.append([str(subject), str(relation), str(object), str(subject_type), str(object_type)])
                 # ent_pairs.append([str(subject), str(relation), str(object)])
@@ -125,11 +125,12 @@ class Complexx:
         # print(pb)
 
         # print(object, subject, relation)
-        # print(subject_list)
-        # print(object_list)
+        self.ent_pairs = []
+        print(subject_list)
+        print(object_list)
         for m in range(0, len(subject_list)):
             for n in range(0, len(object_list)):
-                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str(pa[n][1]), str(pb[n][1])])
+                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str("pa[n][1]"), str("pb[n][1]")])
                 # print("Hello")
 
         # print(self.ent_pairs)
