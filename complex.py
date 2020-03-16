@@ -30,7 +30,7 @@ class Complexx:
                     sp_relation = relation
                     # print(relation)
                     if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
-                        print(relation.nbor(1).pos_)
+                        # print(relation.nbor(1).pos_)
                         if relation.nbor(2).dep_ in ('xcomp'):
                             relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
                         else:# print(relation.nbor(2).dep_)
@@ -51,9 +51,9 @@ class Complexx:
 
                 object, object_type = self.prepro.refine_ent(object, sentence)
                 self.ent_pairs = []
-                print(object, subject, relation)
-                self.ent_pairs.append([str(subject), str(relation), str(object), str(subject_type), str(object_type)])
-                # ent_pairs.append([str(subject), str(relation), str(object)])
+                # print(object, subject, relation)
+                self.ent_pairs.append([str(subject).lower(), str(relation), str(object), str(subject_type), str(object_type)])
+                # ent_pairs.append([str(subject).lower(), str(relation), str(object)])
 
                 return self.ent_pairs
 
@@ -97,14 +97,14 @@ class Complexx:
         for object in question__:
             if object.dep_ in ('obj', 'dobj', 'pobj'):
                 object_che = True
-
+                # print(object)
                 relation = [w for w in object.ancestors if w.dep_ =='ROOT']
                 if relation:
                     relation = relation[0]
                     sp_relation = relation
                     # print(relation)
                     if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
-                        print(relation.nbor(1).pos_)
+                        # print(relation.nbor(1).pos_)
                         if relation.nbor(2).dep_ in ('xcomp'):
                             relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
                         else:# print(relation.nbor(2).dep_)
@@ -112,10 +112,10 @@ class Complexx:
                             # print(relation)
 
                     subject = [a for a in sp_relation.lefts if a.dep_ in ('subj', 'nsubj','nsubjpass')]  # identify subject nodes
-                    print(subject)
+                    # print(subject)
                     if subject:
                         subject = subject[0]
-                        print(subject)
+                        # print(subject)
                         # subject, subject_type = self.prepro.refine_ent(subject, question__)
                         # print(subject)
                     else:
@@ -123,12 +123,13 @@ class Complexx:
                 else:
                     relation = 'unknown'
 
-                object, object_type = self.prepro.refine_ent(object, question__)
+                # object, object_type = self.prepro.refine_ent(object, question__)
+                # print(object)
                 self.ent_pairs = []
                 # print(object, subject, relation)
-                self.ent_pairs.append([str(subject), str(relation), str(object), str("subject_type"), str("object_type")])
+                self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type")])
                 # ent_pairs.append([str(subject), str(relation), str(object)])
-                print(self.ent_pairs)
+                # print(self.ent_pairs)
                 return self.ent_pairs
 
     def no_object(self, sentence):
@@ -166,8 +167,8 @@ class Complexx:
 
         # print(object, subject, relation)
         self.ent_pairs = []
-        print(subject_list)
-        print(object_list)
+        # print(subject_list)
+        # print(object_list)
         for m in range(0, len(subject_list)):
             for n in range(0, len(object_list)):
                 self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str("subject_type"), str("object_type")])

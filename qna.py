@@ -1,9 +1,7 @@
-# import networkx as nx
-# import matplotlib.pyplot as plt
 from getentitypair import GetEntity
-# from exportPairs import exportToJSON
+import spacy
 import pandas as pd
-# from complex import Complexx
+from complex import Complexx
 import json
 
 class QuestionAnswer:
@@ -12,26 +10,54 @@ class QuestionAnswer:
     def __init__(self):
         super(QuestionAnswer, self).__init__()
         self.complex = Complexx()
-        # self.x = GetEntity()
+        self.nlp = spacy.load('en_core_web_sm')
+        # neuralcoref.add_to_pipe(self.nlp)
 
-    def findanswer(self, question):
+    def findanswer(self, question, numberOfPairs):
+        # print(question)
         p = self.complex.question_pairs(question)
+        # print(p)
         pair = p[0]
-        if pair[0] in ('Who','who','wHo', 'WHO', 'whO','WHo'):
-             relation = pair[1]
-             object = pair[2]
+        # print(pair)
 
-             f = open("database.json","r", encoding="utf8")
+        f = open("database.json","r", encoding="utf8")
+        listData = f.readlines()
 
-             listData = f.readlines()
-             mahData = listData[0]
+        loaded = json.loads(listData[0])
+        # print(loaded)
 
-             loaded = json.loads(mahData)
-             print(loaded)
+        relationQ = self.nlp(pair[1])
+        for i in relationQ:
+            relationQ = i.lemma_
 
+        if pair[0] in ('who'):
+             objectQ = pair[2]
 
-             print(loaded["0"])
+             for i in loaded:
+                 relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
+                 relationS = [i.lemma_ for i in relationS]
+                 relationS = relationS[0]
+                 # print(relationS)
 
+                 if relationS == relationQ:
+                     # print(objectQ)
+                     if loaded[str(i)]["target"] == objectQ:
+                         answer_subj = loaded[str(i)]["source"]
+                         return answer_subj
 
-        elif p[0][0] in ('What'):
-            print("IN WHAT")
+        elif pair[2] in ('what'):
+            subjectQ = pair[0]
+            # print(relationQ, subjectQ)
+
+            for i in loaded:
+                subjectS = loaded[str(i)]["source"]
+                # print(subjectQ, subjectS, numberOfPairs)
+                if subjectQ == subjectS:
+                    relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
+                    relationS = [i.lemma_ for i in relationS]
+                    relationS = relationS[0]
+                    # print(relationS)
+
+                    if relationQ == relationS:
+                        answer_obj = loaded[str(i)]["target"]
+                        return answer_obj

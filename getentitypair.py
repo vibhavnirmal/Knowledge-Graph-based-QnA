@@ -103,8 +103,6 @@ class GetEntity:
         text = self.nlp(text)
         text = self.nlp(text._.coref_resolved)
 
-
-
         sentences = [sent.string.strip() for sent in text.sents]  # split text into sentences
         # print(sentences)
         gfinal_pair = []

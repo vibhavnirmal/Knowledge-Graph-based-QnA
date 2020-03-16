@@ -46,9 +46,17 @@ class Main:
 if __name__ == "__main__":
     p = Main()
     inputfile, questionWeAsked = p.main(sys.argv[1:])
-    dataEntities = p.x.get_entity(str(inputfile))
+    dataEntities, numberOfPairs = p.x.get_entity(str(inputfile))
     # print(questionWeAsked)
     if inputfile:
         p.exp.dumpdata(dataEntities[0])
         # p.x.get_entity(str(inputfile))
-        p.qna.findanswer(questionWeAsked)
+        # questionWeAsked = questionWeAsked.lower()
+        # print(questionWeAsked)
+        if questionWeAsked:
+            my_answer = p.qna.findanswer(questionWeAsked, numberOfPairs)
+            # print("The Answer of the question asked")
+            print("------------------------------------------------------------------------------------------------------------")
+            print("Question: ",questionWeAsked)
+            print("Answer:   ",my_answer)
+            print("------------------------------------------------------------------------------------------------------------")
