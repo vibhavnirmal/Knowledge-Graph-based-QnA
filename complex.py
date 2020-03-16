@@ -91,6 +91,46 @@ class Complexx:
         self.ent_pairs.append([str(subject), str(relation), str(object), str("subject_type"), str("object_type")])
         return self.ent_pairs
 
+    def question_pairs(self, question__):
+        question__ = self.nlp(question__)
+
+        for object in question__:
+            if object.dep_ in ('obj', 'dobj', 'pobj'):
+                object_che = True
+
+                relation = [w for w in object.ancestors if w.dep_ =='ROOT']
+                if relation:
+                    relation = relation[0]
+                    sp_relation = relation
+                    # print(relation)
+                    if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
+                        print(relation.nbor(1).pos_)
+                        if relation.nbor(2).dep_ in ('xcomp'):
+                            relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
+                        else:# print(relation.nbor(2).dep_)
+                            relation = ' '.join((str(relation), str(relation.nbor(1))))
+                            # print(relation)
+
+                    subject = [a for a in sp_relation.lefts if a.dep_ in ('subj', 'nsubj','nsubjpass')]  # identify subject nodes
+                    print(subject)
+                    if subject:
+                        subject = subject[0]
+                        print(subject)
+                        # subject, subject_type = self.prepro.refine_ent(subject, question__)
+                        # print(subject)
+                    else:
+                        subject = 'unknown'
+                else:
+                    relation = 'unknown'
+
+                object, object_type = self.prepro.refine_ent(object, question__)
+                self.ent_pairs = []
+                # print(object, subject, relation)
+                self.ent_pairs.append([str(subject), str(relation), str(object), str("subject_type"), str("object_type")])
+                # ent_pairs.append([str(subject), str(relation), str(object)])
+                print(self.ent_pairs)
+                return self.ent_pairs
+
     def no_object(self, sentence):
         p = [subj for subj in sentence if subj.dep_ in ('subj', 'nsubjpass', 'nsubj')]
         relation = [w for w in p[0].ancestors if w.dep_ =='ROOT']
@@ -130,7 +170,7 @@ class Complexx:
         print(object_list)
         for m in range(0, len(subject_list)):
             for n in range(0, len(object_list)):
-                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str("pa[n][1]"), str("pb[n][1]")])
+                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str("subject_type"), str("object_type")])
                 # print("Hello")
 
         # print(self.ent_pairs)

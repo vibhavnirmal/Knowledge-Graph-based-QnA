@@ -7,11 +7,11 @@ from prepro import Prepro
 from util import Utility
 
 
-class mainFunc:
-    """docstring for main."""
+class GetEntity:
+    """docstring for GetEntity."""
 
     def __init__(self):
-        super(mainFunc, self).__init__()
+        super(GetEntity, self).__init__()
         self.complex = Complexx()
         self.prepro = Prepro()
         self.util = Utility()
@@ -81,18 +81,29 @@ class mainFunc:
         return str(senten1), str(senten2)
 
     def get_entity(self, filename, coref = True):
-        with open(filename,"r+") as new:
-            for text in new:
-                # print(text)
-                text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
-                text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
-                text = self.nlp(text)
-
-            if coref:
-                text = self.nlp(text._.coref_resolved)  # resolve coreference clusters
+        gfgf = open(filename,"r+")
+        okok = [text.strip() for text in gfgf]
+        popo = [text for text in okok if text not in ('', ' ')]
+        print(popo)
+        # with open(filename,"r+") as new:
+        #     for text in new:
+        #         # print(text)
+        #         text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
+        #         text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
+        #         text = self.nlp(text)
+        #
+        #     if coref:
+        #         text = self.nlp(text._.coref_resolved)  # resolve coreference clusters
 
         # text = self.nlp("I saw a man you love")
         # print(self.nlp(text._.coref_resolved))
+
+        text = " ".join(popo)
+
+        text = self.nlp(text)
+        text = self.nlp(text._.coref_resolved)
+
+
 
         sentences = [sent.string.strip() for sent in text.sents]  # split text into sentences
         # print(sentences)
@@ -141,10 +152,10 @@ class mainFunc:
             # print(ent_pairs)
             gfinal_pair = []
 
-            gfinal_pair.append(self.final_ent_pairs(ent_pairs, object_che))
+            pairrrr, numberrrr = self.final_ent_pairs(ent_pairs, object_che)
+            gfinal_pair.append(pairrrr)
 
-        return gfinal_pair
-
+        return gfinal_pair, numberrrr
 
 
     def final_ent_pairs(self, ent_pairs, object_che):
@@ -158,4 +169,6 @@ class mainFunc:
         #     pass
 
         print('Entity pairs extracted:', str(len(filtered_entpairs)))
-        return pairs
+        numberf = str(len(filtered_entpairs))
+        print(numberf)
+        return pairs, numberf
