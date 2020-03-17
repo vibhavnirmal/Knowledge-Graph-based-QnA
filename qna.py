@@ -18,7 +18,7 @@ class QuestionAnswer:
         p = self.complex.question_pairs(question)
         # print(p)
         pair = p[0]
-        print(pair)
+        # print(pair)
 
         f = open("database.json","r", encoding="utf8")
         listData = f.readlines()
@@ -46,8 +46,8 @@ class QuestionAnswer:
                 # print(relationSSS)
                 relationS = [i.lemma_ for i in relationS]
                 relationS = relationS[0]
-                print(relationS, relationQ)
-                print(objectQ, loaded[str(i)]["target"])
+                # print(relationS, relationQ)
+                # print(objectQ, loaded[str(i)]["target"])
                 if relationS == relationQ:
                     # print(loaded[str(i)]["target"])
                     if loaded[str(i)]["target"] == objectQ:
@@ -82,7 +82,7 @@ class QuestionAnswer:
                     if relationQ == relationS:
                         answer_obj = loaded[str(i)]["target"]
                         return answer_obj
-                        
+
         elif pair[2] in ('where'):
             subjectQ = pair[0]
             # print(relationQ, subjectQ)
@@ -98,4 +98,25 @@ class QuestionAnswer:
 
                     if relationQ == relationS:
                         answer_obj = loaded[str(i)]["target"]
+                        return answer_obj
+
+        elif pair[5] in ('when'):
+            subjectQ = pair[0]
+            # print(subjectQ)
+            # print(relationQ, subjectQ)
+            # print(pair[2])
+            for i in loaded:
+                # if i.dep_ in ('obj'):
+                # print(loaded[str(i)], "HERE we go")
+                subjectS = loaded[str(i)]["source"]
+                # print(type(subjectQ), type(subjectS), numberOfPairs)
+                if subjectQ == subjectS:
+                    relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
+                    relationS = [i.lemma_ for i in relationS]
+                    relationS = " ".join(relationS)
+                    # print(relationQ)
+                    # print(relationS)
+
+                    if relationQ == relationS:
+                        answer_obj = loaded[str(i)]["date"]
                         return answer_obj
