@@ -23,7 +23,7 @@ class exportToCSV:
     def dumpdata(self, pairs):
         df = pairs.to_csv(index=False)
         # ff = pairs.to_csv('out.zip', index=False, compression=compression_opts)
-        print(df)
+        # print(df)
 
 # df = pd.DataFrame({'name': ['Raphael', 'Donatello'],
 #                    'mask': ['red', 'purple'],

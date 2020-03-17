@@ -21,8 +21,10 @@ class Complexx:
     def normal_sent(self, sentence):
         """ Here goes subject relation object Example: Someone plays cricket. """
         for object in sentence:
+            print(object.dep_)
             if object.dep_ in ('obj', 'dobj', 'pobj'):
                 object_che = True
+                # print(object)
 
                 relation = [w for w in object.ancestors if w.dep_ =='ROOT']
                 if relation:
@@ -52,13 +54,18 @@ class Complexx:
                 object, object_type = self.prepro.refine_ent(object, sentence)
                 self.ent_pairs = []
                 # print(object, subject, relation)
-                self.ent_pairs.append([str(subject).lower(), str(relation), str(object), str(subject_type), str(object_type)])
+                self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str(subject_type), str(object_type)])
                 # ent_pairs.append([str(subject).lower(), str(relation), str(object)])
 
                 return self.ent_pairs
 
     def two_verbs(self, sent):
         # print(sent)
+
+        for i in sent.ents:
+            if i.label_ in ('DATE'):
+                xdate = i
+
         for i in sent:
             if i.pos_ in ('PROPN'):
                 subject = i
@@ -66,18 +73,24 @@ class Complexx:
             if i.pos_ in ('VERB'):
                 if i.nbor(1).pos_ in ('VERB'):
                     relation = " ".join((str(i), str(i.nbor(1))))
+                elif i.nbor(1).pos_ in ('ADP'):
+                    if str(i.nbor(1)) == 'to':
+                        relation = " ".join((str(i), str(i.nbor(1))))
                 else:
                     relation = str(i)
 
             if i.pos_ in ('NOUN'):
-                print(i.nbor(1).pos_)
+                # print(i.nbor(1).pos_)
                 if i.nbor(1).pos_ in ('ADP'):
+                    # pass
                     if i.nbor(2).pos_ in ('NOUN'):
                         object = " ".join((str(i), str(i.nbor(1)), str(i.nbor(2))))
-                    # else:
-                        # object = " ".join(str(i), str(i.nbor(1)))
+                        # print(object)
+                    else:
+                        object = " ".join(str(i), str(i.nbor(1)))
                 else:
                     object = str(i)
+                # object = i
 
             if i.pos_ in ('PRON'):
                 subject = i
@@ -88,17 +101,26 @@ class Complexx:
         # subject, subject_type = self.prepro.refine_ent(subject, sent)
         # object, object_type = self.prepro.refine_ent(object, sent)
         self.ent_pairs = []
-        self.ent_pairs.append([str(subject), str(relation), str(object), str("subject_type"), str("object_type")])
+        # self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type"), str(xdate)])
+        self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type")])
         return self.ent_pairs
 
     def question_pairs(self, question__):
         question__ = self.nlp(question__)
 
         for object in question__:
+            objectNEW = object
+            # print(object.dep_)
+
             if object.dep_ in ('obj', 'dobj', 'pobj'):
                 object_che = True
+                if object.nbor(-1).pos_ in ('PUNCT'):
+                    # print(object.nbor(-1))
+                    if object.nbor(-2).pos_ in ('NOUN'):
+                        object = ' '.join( (str(object.nbor(-2)), str(object) ))
+
                 # print(object)
-                relation = [w for w in object.ancestors if w.dep_ =='ROOT']
+                relation = [w for w in objectNEW.ancestors if w.dep_ =='ROOT']
                 if relation:
                     relation = relation[0]
                     sp_relation = relation
@@ -132,11 +154,80 @@ class Complexx:
                 # print(self.ent_pairs)
                 return self.ent_pairs
 
+            elif object.dep_ in ('advmod'):
+                # print(str(object).lower())
+                if str(object).lower() == 'where':
+                    relation = [w for w in object.ancestors if w.dep_ =='ROOT']
+                    # print(relation)
+                    if relation:
+                        relation = relation[0]
+                        sp_relation = relation
+                        # print(relation)
+                        if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
+                            # print(relation.nbor(1).pos_)
+                            if relation.nbor(2).dep_ in ('xcomp'):
+                                relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
+                            else:# print(relation.nbor(2).dep_)
+                                relation = ' '.join((str(relation), str(relation.nbor(1))))
+                                # print(relation)
+                        subject = [a for a in sp_relation.lefts if a.dep_ in ('subj', 'nsubj','nsubjpass')]  # identify subject nodes
+                        # print(subject)
+                        if subject:
+                            subject = subject[0]
+                            # print(subject)
+                            # subject, subject_type = self.prepro.refine_ent(subject, question__)
+                            # print(subject)
+                        else:
+                            subject = 'unknown'
+                    else:
+                        relation = 'unknown'
+
+                    self.ent_pairs = []
+                    # print(object, subject, relation)
+                    self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type")])
+                    # ent_pairs.append([str(subject), str(relation), str(object)])
+                    # print(self.ent_pairs)
+                    return self.ent_pairs
+
+                elif str(object).lower() == 'when':
+                    relation = [w for w in object.ancestors if w.dep_ =='ROOT']
+                    print(relation)
+                    if relation:
+                        relation = relation[0]
+                        sp_relation = relation
+                        # print(relation)
+                        if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
+                            # print(relation.nbor(1).pos_)
+                            if relation.nbor(2).dep_ in ('xcomp'):
+                                relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
+                            else:# print(relation.nbor(2).dep_)
+                                relation = ' '.join((str(relation), str(relation.nbor(1))))
+                                # print(relation)
+                        subject = [a for a in sp_relation.lefts if a.dep_ in ('subj', 'nsubj','nsubjpass')]  # identify subject nodes
+                        # print(subject)
+                        if subject:
+                            subject = subject[0]
+                            # print(subject)
+                            # subject, subject_type = self.prepro.refine_ent(subject, question__)
+                            # print(subject)
+                        else:
+                            subject = 'unknown'
+                    else:
+                        relation = 'unknown'
+
+                    self.ent_pairs = []
+                    # print(object, subject, relation)
+                    self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type")])
+                    # ent_pairs.append([str(subject), str(relation), str(object)])
+                    # print(self.ent_pairs)
+                    return self.ent_pairs
+
+
     def no_object(self, sentence):
         p = [subj for subj in sentence if subj.dep_ in ('subj', 'nsubjpass', 'nsubj')]
         relation = [w for w in p[0].ancestors if w.dep_ =='ROOT']
         p[0], subject_type = self.prepro.refine_ent(p[0], sentence)
-        self.ent_pairs.append([str(p[0]), str(relation[0]),str(""), str(subject_type),str("")])
+        self.ent_pairs.append([str(p[0]).lower(), str(relation[0]).lower(),str("").lower(), str(subject_type),str("")])
         return self.ent_pairs
 
     def multi_obj_subj_list(self, sentence):
@@ -171,7 +262,7 @@ class Complexx:
         # print(object_list)
         for m in range(0, len(subject_list)):
             for n in range(0, len(object_list)):
-                self.ent_pairs.append([str(pa[m][0]), str(relation), str(pb[n][0]), str("subject_type"), str("object_type")])
+                self.ent_pairs.append([str(pa[m][0]).lower(), str(relation).lower(), str(pb[n][0]).lower(), str("subject_type"), str("object_type")])
                 # print("Hello")
 
         # print(self.ent_pairs)

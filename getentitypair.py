@@ -46,7 +46,7 @@ class GetEntity:
             # print(list1)
 
             if check:
-                print(depen, x)
+                # print(depen, x)
                 return True, depen, x
             else:
                 pass
@@ -84,7 +84,7 @@ class GetEntity:
         gfgf = open(filename,"r+")
         okok = [text.strip() for text in gfgf]
         popo = [text for text in okok if text not in ('', ' ')]
-        print(popo)
+        # print(popo)
         # with open(filename,"r+") as new:
         #     for text in new:
         #         # print(text)
@@ -144,10 +144,11 @@ class GetEntity:
                 [retokenizer.merge(span) for span in spans]
 
             dep = [token.dep_ for token in sent]
-            print(dep)
+            pos = [token.pos_ for token in sent]
+            label = [token.label_ for token in sent.ents]
 
             ent_pairs , object_che = self.util.which_sent(dep, sent)
-            # print(ent_pairs)
+            print(ent_pairs)
             gfinal_pair = []
 
             pairrrr, numberrrr = self.final_ent_pairs(ent_pairs, object_che)
@@ -166,7 +167,7 @@ class GetEntity:
         # else:
         #     pass
 
-        print('Entity pairs extracted:', str(len(filtered_entpairs)))
+        # print('Entity pairs extracted:', str(len(filtered_entpairs)))
         numberf = str(len(filtered_entpairs))
-        print(numberf)
+        # print(numberf)
         return pairs, numberf
