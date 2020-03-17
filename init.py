@@ -51,7 +51,7 @@ if __name__ == "__main__":
     p = Main()
     inputfile, questionWeAsked, showGraph = p.main(sys.argv[1:])
     dataEntities, numberOfPairs = p.x.get_entity(str(inputfile))
-    print(dataEntities[0])
+    # print(dataEntities[0])
     if inputfile:
         p.exp.dumpdata(dataEntities[0])
         # p.x.get_entity(str(inputfile))

@@ -163,7 +163,7 @@ class GetEntity:
         # if object_che == False:
         #     pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
         # elif object_che == True:
-        pairs = pd.DataFrame(filtered_entpairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type'])
+        pairs = pd.DataFrame(filtered_entpairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type', 'date'])
         # else:
         #     pass
 
