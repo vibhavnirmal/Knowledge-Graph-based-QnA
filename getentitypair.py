@@ -148,26 +148,30 @@ class GetEntity:
             label = [token.label_ for token in sent.ents]
 
             ent_pairs , object_che = self.util.which_sent(dep, sent)
-            print(ent_pairs)
+            # print(ent_pairs)
             gfinal_pair = []
 
             pairrrr, numberrrr = self.final_ent_pairs(ent_pairs, object_che)
             gfinal_pair.append(pairrrr)
 
+            # print(gfinal_pair)
+
         return gfinal_pair, numberrrr
 
 
     def final_ent_pairs(self, ent_pairs, object_che):
-        filtered_entpairs = [sublist for sublist in ent_pairs if not any(str(x) == '' for x in sublist)]
-
+        # filtered_entpairs = [sublist for sublist in ent_pairs if not any(str(x) == '' for x in sublist)]
+        # print(ent_pairs)
+        # print(filtered_entpairs)
         # if object_che == False:
         #     pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
         # elif object_che == True:
-        pairs = pd.DataFrame(filtered_entpairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type', 'date'])
+        pairs = pd.DataFrame(ent_pairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type', 'date'])
+        # print(pairs)
         # else:
         #     pass
 
         # print('Entity pairs extracted:', str(len(filtered_entpairs)))
-        numberf = str(len(filtered_entpairs))
+        numberf = str(len(ent_pairs))
         # print(numberf)
         return pairs, numberf

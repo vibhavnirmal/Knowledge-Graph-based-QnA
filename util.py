@@ -21,7 +21,7 @@ class Utility:
         objcnt = dep_count['obj_cnt']
 
         for i in sent:
-            print(i.pos_)
+            # print(i.pos_)
             if i.dep_ in ('obj', 'dobj', 'pobj'):
                 if i.nbor(1).dep_ in ('prep'):
                     if i.nbor(2).dep_ in ('pobj'):
