@@ -116,10 +116,21 @@ class QuestionAnswer:
                 if subjectQ == subjectS:
                     relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
                     relationS = [i.lemma_ for i in relationS]
-                    relationS = " ".join(relationS)
-                    # print(relationQ)
-                    # print(relationS)
+                    relBuffer = relationS
+                    print(relationS[0], relationS[1])
 
+                    if str(relationS[1]).lower() == 'to':
+                        relationS = " ".join(relationS)
+                    else:
+                        relationS = relationS[0]
+                        extraIN = relBuffer[1].lower()
+
+                    print(loaded[str(i)]["date"], "Heloooo")
+
+                    # print(relationQ, relationS)
                     if relationQ == relationS:
-                        answer_obj = loaded[str(i)]["date"]
+                        if loaded[str(i)]["date"] != '':
+                            answer_obj = loaded[str(i)]["date"]
+                        elif extraIN == "in":
+                            answer_obj = loaded[str(i)]["target"]
                         return answer_obj
