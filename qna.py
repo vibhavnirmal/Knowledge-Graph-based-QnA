@@ -18,7 +18,7 @@ class QuestionAnswer:
         p = self.complex.question_pairs(question)
         # print(p)
         pair = p[0]
-        # print(pair)
+        print(pair)
 
         f = open("database.json","r", encoding="utf8")
         listData = f.readlines()
@@ -38,7 +38,6 @@ class QuestionAnswer:
         if pair[0] in ('who'):
             objectQ = pair[2]
             subList = []
-            # print(objectQ)
 
             for i in loaded:
                 relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
@@ -68,11 +67,12 @@ class QuestionAnswer:
 
         elif pair[2] in ('what'):
             subjectQ = pair[0]
-            # print(relationQ, subjectQ)
+            print(relationQ, subjectQ)
+            subList = []
 
             for i in loaded:
                 subjectS = loaded[str(i)]["source"]
-                # print(subjectQ, subjectS, numberOfPairs)
+                print(subjectQ, subjectS, numberOfPairs)
                 if subjectQ == subjectS:
                     relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
                     relationS = [i.lemma_ for i in relationS]
@@ -81,7 +81,10 @@ class QuestionAnswer:
 
                     if relationQ == relationS:
                         answer_obj = loaded[str(i)]["target"]
-                        return answer_obj
+                        subList.append(answer_obj)
+
+            answer_obj = ",".join(subList)
+            return answer_obj
 
         elif pair[2] in ('where'):
             subjectQ = pair[0]

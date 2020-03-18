@@ -19,19 +19,19 @@ class Main:
         inputQue = ''
         try:
             # print("Here")
-            opts, args = getopt.getopt(argv, "hi:q:g:", ["ifile=", "question=","showGraph="])
+            opts, args = getopt.getopt(argv, "hi:q:g:s:", ["ifile=", "question=","showGraph=","showEntities="])
             # print(opts, args)
             if opts == [] and args == []:
                 print("ERROR")
                 print("Help:")
-                print("python init.py -i <TextFileName> -q <Question>")
+                print("python init.py -i <TextFileName> -q <Question> -s <show Ent>")
         except getopt.GetoptError as err:
             sys.exit(2)
 
         for opt, arg in opts:
-            showGraph = "f"
+            showGraph , showEntities= "f", "f"
             if opt == '-h':
-                print ('test.py -i <inputfile> -q <question> -g <y or n>')
+                print ('test.py -i <inputfile> -q <question> -g <y or n> -s <Show Entities>')
                 sys.exit()
             elif opt in ("-i", "--ifile"):
                 inputfile = arg
@@ -40,20 +40,24 @@ class Main:
                 # print(inputQue)
             elif opt in ("-g", "--showGraph"):
                 showGraph = arg
+            elif opt in ("-s", "--showEntities"):
+                showEntities = arg
             else:
                 assert False, "unhandled option"
 
         # print ('Input file is "', inputfile,'"')
-        return inputfile, inputQue, showGraph
+        return inputfile, inputQue, showGraph, showEntities
 
 
 if __name__ == "__main__":
     p = Main()
-    inputfile, questionWeAsked, showGraph = p.main(sys.argv[1:])
+    inputfile, questionWeAsked, showGraph, showEntities = p.main(sys.argv[1:])
     dataEntities, numberOfPairs = p.x.get_entity(str(inputfile))
-    # print(dataEntities[0])
     if inputfile:
         p.exp.dumpdata(dataEntities[0])
+
+        if showEntities in ('y', 'yes', 'true'):
+            print(dataEntities[0])
         # p.x.get_entity(str(inputfile))
         # questionWeAsked = questionWeAsked.lower()
         # print(questionWeAsked)
