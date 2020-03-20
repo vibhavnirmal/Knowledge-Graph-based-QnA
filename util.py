@@ -20,18 +20,6 @@ class Utility:
         subjcnt = dep_count['subj_cnt']
         objcnt = dep_count['obj_cnt']
 
-        for i in sent:
-            # print(i, i.dep_)
-            if i.dep_ in ('obj', 'dobj', 'pobj'):
-                try:
-                    if i.nbor(1).dep_ in ('prep'):
-                        if i.nbor(2).dep_ in ('pobj'):
-                            multi_obj_new_pair = self.complex.two_verbs(sent)
-                            for pair in multi_obj_new_pair:
-                                self.ent_pairs.append(pair)
-                except IndexError:
-                    pass
-
         # for i in sent:
         #     if i.dep_ in ('obj', 'dobj', 'pobj'):
         #         if i.nbor(1).dep_ in ('nmod'):
@@ -56,7 +44,17 @@ class Utility:
             for pair in mult_subj_obj_:
                 self.ent_pairs.append(pair)
         else:
-            pass
+            for i in sent:
+                # print(i, i.dep_)
+                if i.dep_ in ('obj', 'dobj', 'pobj'):
+                    try:
+                        if i.nbor(1).dep_ in ('prep'):
+                            if i.nbor(2).dep_ in ('pobj'):
+                                multi_obj_new_pair = self.complex.two_verbs(sent)
+                                for pair in multi_obj_new_pair:
+                                    self.ent_pairs.append(pair)
+                    except IndexError:
+                        pass
 
         # print(subjcnt, objcnt, conjcnt)
 

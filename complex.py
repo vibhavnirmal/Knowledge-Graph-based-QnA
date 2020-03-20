@@ -1,6 +1,7 @@
 import spacy
 import neuralcoref
 from prepro import Prepro
+import re
 
 class Complexx:
     """docstring for Tenses."""
@@ -19,7 +20,16 @@ class Complexx:
         return tok_childs
 
     def normal_sent(self, sentence):
-        """ Here goes subject relation object Example: Someone plays cricket. """
+        """ Here goes subject relation object Example:
+        -> John plays cricket.
+        -> Mohan solved the Tower of Hanoi problem. """
+        xdate =[]
+        for i in sentence.ents:
+            # print (i, "HELLOOOlol")
+            if i.label_ in ('DATE'):
+                xdate.append(str(i))
+        # print (xdate)
+
         for object in sentence:
             # print(object.dep_)
             if object.dep_ in ('obj', 'dobj', 'pobj'):
@@ -44,18 +54,18 @@ class Complexx:
                     if subject:
                         subject = subject[0]
                         # print(subject)
-                        subject, subject_type = self.prepro.refine_ent(subject, sentence)
+                        # subject, subject_type = self.prepro.refine_ent(subject, sentence)
                         # print(subject)
                     else:
                         subject = 'unknown'
                 else:
                     relation = 'unknown'
 
-                object, object_type = self.prepro.refine_ent(object, sentence)
+                # object, object_type = self.prepro.refine_ent(object, sentence)
                 self.ent_pairs = []
-                xdate = ""
-                # print(object, subject, relation)
-                self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str(subject_type), str(object_type), str(xdate)])
+                xdate = xdate[0]
+                print(object, subject, relation)
+                self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower(), str("subject_type"), str("object_type"), str(xdate)])
                 # ent_pairs.append([str(subject).lower(), str(relation), str(object)])
 
                 return self.ent_pairs
@@ -71,7 +81,9 @@ class Complexx:
         # print (xdate)
 
         subject_list = []
+        object_list = []
 
+        rree = '^[0-9]+$'
 
         for i in sent:
             # print(i, i.dep_)
@@ -91,26 +103,28 @@ class Complexx:
 
             if i.dep_ in ('obj','pobj','dobj'):
                 try:
-                    hereon = i.nbor(1)
-                    pADP = str(hereon.pos_)
-                    # print(pADP)
-                    if pADP == 'ADP':
-                        # pass
+                    # John Doe went college on Monday
+                    if str(i.nbor(1).pos_) == 'ADP':
                         if str(i.nbor(2)) in xdate:
                             object = str(i)
+                            # print(object, "Hello First")
                         else:
-                            object = " ".join((str(i), str(i.nbor(1)), str(i.nbor(2))))
-                    elif i:
+                            object = " ".join( (str(i), str(i.nbor(1)), str(i.nbor(2))) )
+                            # print(object, "Hello Second")
+                    elif re.match(rree, str(i)):
+                        print("GOT NUMBER")
+                        pass
+                    else:
                         object = i
+                        # print(object, "elif vala part")
+                    # else:
+                    #     object = i
                 except IndexError:
                     pass
                         # print(object)
                     # object = " ".join(str(i), str(i.nbor(1)))
 
-
                 # object = i
-
-
 
         # subject, subject_type = self.prepro.refine_ent(subject, sent)
         # object, object_type = self.prepro.refine_ent(object, sent)
@@ -127,7 +141,6 @@ class Complexx:
         return self.ent_pairs
 
     def question_pairs(self, question__):
-
         # questionList = question__.split(" ")
         # print(questionList)
 
