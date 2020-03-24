@@ -12,7 +12,7 @@ class GraphEnt:
 
     def createGraph(self, dataEntities):
         # print(dataEntities)
-        h = dataEntities[0].values.tolist()
+        h = dataEntities.values.tolist()
 
         source = [i[0] for i in h]
         relations = [i[1] for i in h]

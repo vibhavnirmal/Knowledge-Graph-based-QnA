@@ -2,7 +2,7 @@ from getentitypair import GetEntity
 import spacy
 import pandas as pd
 from complex import Complexx
-import json
+import json, re
 
 class QuestionAnswer:
     """docstring for QuestionAnswer."""
@@ -11,12 +11,9 @@ class QuestionAnswer:
         super(QuestionAnswer, self).__init__()
         self.complex = Complexx()
         self.nlp = spacy.load('en_core_web_sm')
-        # neuralcoref.add_to_pipe(self.nlp)
 
     def findanswer(self, question, numberOfPairs):
-        # print(question)
         p = self.complex.question_pairs(question)
-        # print(p)
         pair = p[0]
         print(pair)
 
@@ -24,7 +21,6 @@ class QuestionAnswer:
         listData = f.readlines()
 
         loaded = json.loads(listData[0])
-        # print(loaded)
         relQ = []
         relationQ = self.nlp(pair[1])
         for i in relationQ:
@@ -32,8 +28,6 @@ class QuestionAnswer:
             relQ.append(relationQ)
 
         relationQ = " ".join(relQ)
-        # print(relationQ)
-        # print(relQ)
 
         if pair[0] in ('who'):
             objectQ = pair[2]
@@ -42,25 +36,21 @@ class QuestionAnswer:
             for i in loaded:
                 relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
                 relationSSS = " ".join([relation.lemma_ for relation in self.nlp(loaded[str(i)]["relation"])])
-                # print(relationSSS)
+
                 relationS = [i.lemma_ for i in relationS]
                 relationS = relationS[0]
-                # print(relationS, relationQ)
-                # print(objectQ, loaded[str(i)]["target"])
+
                 if relationS == relationQ:
-                    # print(loaded[str(i)]["target"])
-                    if loaded[str(i)]["target"] == objectQ:
+                    objectS = loaded[str(i)]["target"]
+                    objectS = re.sub('-', ' ', objectS)
+
+                    if objectS == objectQ:
                         answer_subj = loaded[str(i)]["source"]
-                        # print(answer_subj, "hoilll")
                         subList.append(answer_subj)
-                        # print(answer_subj)
                 elif str(relationSSS) == str(relationQ):
-                    # print(loaded[str(i)]["target"])
                     if loaded[str(i)]["target"] == objectQ:
                         answer_subj = loaded[str(i)]["source"]
-                        # print(answer_subj, "hoilll")
                         subList.append(answer_subj)
-                        # print(answer_subj)
 
             answer_subj = ",".join(subList)
             return answer_subj

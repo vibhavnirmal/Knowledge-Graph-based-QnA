@@ -15,7 +15,6 @@ class GetEntity:
         self.complex = Complexx()
         self.prepro = Prepro()
         self.util = Utility()
-        self.sentence_of_mine = ""
         self.nlp = spacy.load('en_core_web_sm')
         neuralcoref.add_to_pipe(self.nlp)
 
@@ -80,35 +79,14 @@ class GetEntity:
 
         return str(senten1), str(senten2)
 
-    def get_entity(self, filename, coref = True):
-        gfgf = open(filename,"r+")
-        okok = [text.strip() for text in gfgf]
-        popo = [text for text in okok if text not in ('', ' ')]
-        # print(popo)
-        # with open(filename,"r+") as new:
-        #     for text in new:
-        #         # print(text)
-        #         text = re.sub(r'\n+', '.', text)  # replace multiple newlines with period
-        #         text = re.sub(r'\[\d+\]', ' ', text)  # remove reference numbers
-        #         text = self.nlp(text)
-        #
-        #     if coref:
-        #         text = self.nlp(text._.coref_resolved)  # resolve coreference clusters
-
-        # text = self.nlp("I saw a man you love")
-        # print(self.nlp(text._.coref_resolved))
-
-        text = " ".join(popo)
-
-        text = self.nlp(text)
-        text = self.nlp(text._.coref_resolved)
-
-        sentences = [sent.string.strip() for sent in text.sents]  # split text into sentences
-        # print(sentences)
+    def get_entity(self, text):
         gfinal_pair = []
+
+        sentences = [sent.string.strip() for sent in text.sents]
+
         for sent in sentences:
             sent = self.nlp(sent)
-            # self.going_from_root(sent, True, False, False)
+
             # checked_for_and , depend , pos_of_and_= self.check_for_multi_and_(sent)
             # print(checked_for_and)
 
@@ -137,21 +115,22 @@ class GetEntity:
             #         self.final_ent_pairs(ent_pairs, object_che)
 
             # else:
-            spans = list(sent.ents) + list(sent.noun_chunks)  # collect nodes
-            spans = spacy.util.filter_spans(spans)
-                # print(spans)
-            with sent.retokenize() as retokenizer:
-                [retokenizer.merge(span) for span in spans]
-
+            # spans = list(sent.ents) + list(sent.noun_chunks)  # collect nodes
+            # spans = spacy.util.filter_spans(spans)
+            # # print(sent, "1", spans)
+            # with sent.retokenize() as retokenizer:
+            #     [retokenizer.merge(span) for span in spans]
+            # print(sent, "2", spans)
             dep = [token.dep_ for token in sent]
-            pos = [token.pos_ for token in sent]
+            # pos = [token.pos_ for token in sent]
             label = [token.label_ for token in sent.ents]
+            # print(dep)
 
-            ent_pairs , object_che = self.util.which_sent(dep, sent)
+            ent_pairs = self.util.which_sent(dep, sent)
             # print(ent_pairs)
             gfinal_pair = []
 
-            pairrrr, numberrrr = self.final_ent_pairs(ent_pairs, object_che)
+            pairrrr, numberrrr = self.final_ent_pairs(ent_pairs)
             gfinal_pair.append(pairrrr)
 
             # print(gfinal_pair)
@@ -159,14 +138,14 @@ class GetEntity:
         return gfinal_pair, numberrrr
 
 
-    def final_ent_pairs(self, ent_pairs, object_che):
+    def final_ent_pairs(self, ent_pairs):
         # filtered_entpairs = [sublist for sublist in ent_pairs if not any(str(x) == '' for x in sublist)]
         # print(ent_pairs)
         # print(filtered_entpairs)
         # if object_che == False:
         #     pairs = pd.DataFrame(filtered_entpairs, columns=['subject', 'relation', 'subject_type'])
         # elif object_che == True:
-        pairs = pd.DataFrame(ent_pairs, columns=['source', 'relation', 'target', 'subject_type', 'object_type', 'date'])
+        pairs = pd.DataFrame(ent_pairs, columns=['source', 'relation', 'aux_relation', 'target', 'time', 'place'])
         # print(pairs)
         # else:
         #     pass

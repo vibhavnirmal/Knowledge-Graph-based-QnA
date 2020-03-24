@@ -8,12 +8,33 @@ class Prepro:
     def __init__(self):
         super(Prepro, self).__init__()
         self.conj_dep = {}
+        self.nlp = spacy.load('en_core_web_lg')
+        neuralcoref.add_to_pipe(self.nlp)
 
-    def count_subj_obj(self, dep):
+    def preprocess_text(self, inputfile, coref = True):
+        input_file = open(inputfile,"r+")
+        text_strip = [text.strip() for text in input_file]
+        preprocessed_text = [text for text in text_strip if text not in ('', ' ')]
+        text = " ".join(preprocessed_text)
+        text = self.nlp(text)
+        text = self.nlp(text._.coref_resolved)
+        return text
+
+    def count_subj_obj(self, dep, sentence):
+        count = 0
+        for word in sentence.ents:
+            if word.label_ in ('DATE'):
+                count = count+1
+
         obj_cnt = dep.count('obj')+dep.count('dobj')+dep.count('pobj')
         subj_cnt = dep.count('subj')+dep.count('nsubj')+dep.count('nsubjpass')
         conj_cnt = dep.count('conj')
-        self.conj_dep = {'obj_cnt':obj_cnt, 'subj_cnt':subj_cnt,'conj_cnt':conj_cnt}
+        time_cnt = count
+
+        if time_cnt:
+            obj_cnt = obj_cnt - time_cnt
+        # print(time_cnt)
+        self.conj_dep = {'obj_cnt':obj_cnt, 'subj_cnt':subj_cnt,'conj_cnt':conj_cnt,'time_cnt':time_cnt}
         return self.conj_dep
 
     def refine_ent(self, ent, sent):
