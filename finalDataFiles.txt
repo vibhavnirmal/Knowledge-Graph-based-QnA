@@ -6,12 +6,12 @@ Manchester City Football Club is based in Manchester. It competes in the Premier
 
 Vibhav and Vedant bought mangoes in Gandhinagar on Tuesday.
 Vibhav ate chocolate.
+Manan ate ice-cream in Japan.
 He drank coffee on Sunday.
-Stuti likes tea.
+Stuti tried to run the code.
 She lives in Chandkheda.
 She ate chocolate on Monday.
-Vedant ate chocolate on Monday.
-Manan ate ice-cream.
+Vedant ate chocolate on Friday.
 Sujata likes coffee.
 Suhani likes ice-cream.
 Monty bought chocolate and ice-cream.
@@ -19,5 +19,4 @@ Kunal played cricket and football.
 Vedant plays football.
 Vibhav lives in Gandhinagar.
 He likes to play cricket.
-Josh likes coffee.
-The Prime Minister of India made chocolates
+The Prime Minister of India made chocolates.

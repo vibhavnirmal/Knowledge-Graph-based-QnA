@@ -1,5 +1,4 @@
-import re
-import spacy
+import re, spacy
 import neuralcoref
 import pandas as pd
 from complex import Complexx

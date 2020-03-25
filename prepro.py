@@ -1,5 +1,6 @@
 import spacy
 import neuralcoref
+from resolvedep import change_nouns
 
 
 class Prepro:
@@ -7,8 +8,9 @@ class Prepro:
 
     def __init__(self):
         super(Prepro, self).__init__()
+        self.change = change_nouns()
         self.conj_dep = {}
-        self.nlp = spacy.load('en_core_web_lg')
+        self.nlp = spacy.load('en_core_web_sm')
         neuralcoref.add_to_pipe(self.nlp)
 
     def preprocess_text(self, inputfile, coref = True):
@@ -16,8 +18,9 @@ class Prepro:
         text_strip = [text.strip() for text in input_file]
         preprocessed_text = [text for text in text_strip if text not in ('', ' ')]
         text = " ".join(preprocessed_text)
+        """ ADDED CUSTOM SCRIPT """
+        text = self.change.resolved(text)
         text = self.nlp(text)
-        text = self.nlp(text._.coref_resolved)
         return text
 
     def count_subj_obj(self, dep, sentence):

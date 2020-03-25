@@ -14,3 +14,7 @@ Vedant plays football.
 Vibhav lives in Gandhinagar.
 He likes to play cricket.
 The Prime Minister of India made chocolates.
+The Prime Minister of China drank soup on Sunday.
+The Prime Minister of Australia drank soup on Sunday.
+The Prime Minister of Japan wrote words on Thursday.
+The Prime Minister of China ate banana on Saturday.

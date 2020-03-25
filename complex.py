@@ -60,10 +60,12 @@ class Complexx:
         word_dep_count_subj = [dep_word.index(word) for word in dep_word if word in ('nsubj', 'subj', 'nsubjpass')]
         word_dep_count_subj = word_dep_count_subj[0] + 1
 
+        subject_final = ""
         for word in sentence:
-            subject_final = ""
             if word_dep_count_subj > 0:
-                if word.dep_ in ('compound'):
+                # print(word.dep_)
+                """ IN prime minister it gives compound and then nmod """
+                if word.dep_ in ('compound') or word.dep_ in ('nmod'):
                     if subject_final == "":
                         subject_final = str(word)
                         word_dep_count_subj = word_dep_count_subj - 1
@@ -89,7 +91,7 @@ class Complexx:
 
                 if str(word) in place and word.nbor(-1).dep_ in ('prep') and str(word.nbor(-1)) == "of":
                     """ INDIA should be in place list + "of" "India" is there then it will come here """
-                    print("came in of pobj(GPE)")
+                    # print("came in of pobj(GPE)")
                 else:
                     if str(word) not in time and str(word) not in place:
                         """ INDIA should not be in place list + INDIA should not be in time list """
