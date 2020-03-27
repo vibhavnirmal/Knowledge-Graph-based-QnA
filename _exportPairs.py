@@ -11,9 +11,6 @@ class exportToJSON:
         my_data = pairs.to_json('database.json', orient='index')
         # print(my_data)
 
-        # with open('database.json', 'w') as json_file:
-            # json_file.write(my_data)
-
 class exportToCSV:
     """docstring for exportToJSON."""
 
@@ -25,17 +22,17 @@ class exportToCSV:
         # ff = pairs.to_csv('out.zip', index=False, compression=compression_opts)
         # print(df)
 
-# df = pd.DataFrame({'name': ['Raphael', 'Donatello'],
-#                    'mask': ['red', 'purple'],
-#                    'weapon': ['sai', 'bo staff']})
-#
-# df.to_csv(index=False)
-# 'name,mask,weapon\nRaphael,red,sai\nDonatello,purple,bo staff\n'
-#
-# Create ‘out.zip’ containing ‘out.csv’
+        # df = pd.DataFrame({'name': ['Raphael', 'Donatello'],
+        #                    'mask': ['red', 'purple'],
+        #                    'weapon': ['sai', 'bo staff']})
+        #
+        # df.to_csv(index=False)
+        # 'name,mask,weapon\nRaphael,red,sai\nDonatello,purple,bo staff\n'
+        #
+        # Create ‘out.zip’ containing ‘out.csv’
 
-# compression_opts = dict(method='zip',
-#                         archive_name='out.csv')
+        # compression_opts = dict(method='zip',
+        #                         archive_name='out.csv')
 
-# df.to_csv('out.zip', index=False,
-#           compression=compression_opts)
+        # df.to_csv('out.zip', index=False,
+        #           compression=compression_opts)

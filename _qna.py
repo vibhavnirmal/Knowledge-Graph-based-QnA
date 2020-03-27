@@ -1,8 +1,8 @@
-from getentitypair import GetEntity
 import spacy
 import pandas as pd
-from complex import Complexx
 import json, re
+from _getentitypair import GetEntity
+from _complex import Complexx
 
 class QuestionAnswer:
     """docstring for QuestionAnswer."""
@@ -15,7 +15,6 @@ class QuestionAnswer:
     def findanswer(self, question, numberOfPairs):
         p = self.complex.question_pairs(question)
         pair = p[0]
-        print(pair)
 
         f = open("database.json","r", encoding="utf8")
         listData = f.readlines()
@@ -23,15 +22,21 @@ class QuestionAnswer:
         loaded = json.loads(listData[0])
         relQ = []
         relationQ = self.nlp(pair[1])
+
         for i in relationQ:
             relationQ = i.lemma_
             relQ.append(relationQ)
 
+        objectQ = pair[3]
+        subList = []
+        timeQ = str(pair[4]).lower()
+        placeQ = str(pair[5]).lower()
+        # print(timeQ, placeQ)
+
         relationQ = " ".join(relQ)
+        # print(relationQ)
 
         if pair[0] in ('who'):
-            objectQ = pair[2]
-            subList = []
 
             for i in loaded:
                 relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
@@ -39,42 +44,62 @@ class QuestionAnswer:
 
                 relationS = [i.lemma_ for i in relationS]
                 relationS = relationS[0]
+                # print(relationSSS)
 
                 if relationS == relationQ:
                     objectS = loaded[str(i)]["target"]
                     objectS = re.sub('-', ' ', objectS)
 
                     if objectS == objectQ:
-                        answer_subj = loaded[str(i)]["source"]
-                        subList.append(answer_subj)
+                        if str(pair[4]) != "":
+                            timeS = [str(time).lower() for time in self.nlp(loaded[str(i)]["time"])]
+                            if timeQ in timeS:
+                                answer_subj = loaded[str(i)]["source"]
+                                subList.append(answer_subj)
                 elif str(relationSSS) == str(relationQ):
-                    if loaded[str(i)]["target"] == objectQ:
-                        answer_subj = loaded[str(i)]["source"]
-                        subList.append(answer_subj)
+                    objectS = loaded[str(i)]["target"]
+                    objectS = re.sub('-', ' ', objectS)
+
+                    if objectS == objectQ:
+                        if str(pair[4]) != "":
+                            timeS = [time for time in self.nlp(loaded[str(i)]["time"])]
+                            if timeQ in timeS:
+                                answer_subj = loaded[str(i)]["source"]
+                                subList.append(answer_subj)
+                        else:
+                            answer_subj = loaded[str(i)]["source"]
+                            subList.append(answer_subj)
+
 
             answer_subj = ",".join(subList)
-            return answer_subj
+            if answer_subj == "":
+                return "None"
+            else:
+                return answer_subj
 
         elif pair[2] in ('what'):
             subjectQ = pair[0]
-            print(relationQ, subjectQ)
             subList = []
 
             for i in loaded:
                 subjectS = loaded[str(i)]["source"]
-                print(subjectQ, subjectS, numberOfPairs)
                 if subjectQ == subjectS:
                     relationS = [relation for relation in self.nlp(loaded[str(i)]["relation"])]
                     relationS = [i.lemma_ for i in relationS]
                     relationS = relationS[0]
-                    # print(relationS)
 
                     if relationQ == relationS:
-                        answer_obj = loaded[str(i)]["target"]
-                        subList.append(answer_obj)
+                        placeS = [str(place).lower() for place in self.nlp(loaded[str(i)]["place"])]
+                        # print(placeQ, placeS)
+                        if placeQ in placeS:
+                            answer_obj = loaded[str(i)]["target"]
+                            subList.append(answer_obj)
 
             answer_obj = ",".join(subList)
-            return answer_obj
+            if answer_obj == "":
+                return "None"
+            else:
+                return answer_obj
 
         elif pair[2] in ('where'):
             subjectQ = pair[0]
@@ -90,12 +115,12 @@ class QuestionAnswer:
                     # print(relationS)
 
                     if relationQ == relationS:
-                        answer_obj = loaded[str(i)]["target"]
+                        answer_obj = loaded[str(i)]["place"]
                         return answer_obj
 
-        elif pair[5] in ('when'):
+        elif pair[4] in ('when'):
             subjectQ = pair[0]
-            # print(subjectQ)
+            print(subjectQ)
             # print(relationQ, subjectQ)
             # print(pair[2])
             for i in loaded:
@@ -124,8 +149,8 @@ class QuestionAnswer:
 
                     # print(relationQ, relationS)
                     if relationQ == relationS:
-                        if loaded[str(i)]["date"] != '':
-                            answer_obj = loaded[str(i)]["date"]
+                        if loaded[str(i)]["time"] != '':
+                            answer_obj = loaded[str(i)]["time"]
                         elif extraIN == "in" or extraIN == "on":
                             answer_obj = loaded[str(i)]["target"]
                         return answer_obj

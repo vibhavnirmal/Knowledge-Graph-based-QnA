@@ -1,9 +1,8 @@
 import sys, getopt
-from getentitypair import GetEntity
-from qna import QuestionAnswer
-from exportPairs import exportToJSON
-from graph import GraphEnt
-from prepro import Prepro
+from _getentitypair import GetEntity
+from _qna import QuestionAnswer
+from _exportPairs import exportToJSON
+from _graph import GraphEnt
 
 class Main:
     """docstring for Main."""
@@ -14,7 +13,6 @@ class Main:
         self.getEntity = GetEntity()
         self.export = exportToJSON()
         self.graph = GraphEnt()
-        self.preprocess = Prepro()
 
     def main(self, argv):
         inputfile = ''
@@ -52,7 +50,7 @@ if __name__ == "__main__":
     inputfile, inputQue, showGraph, showEntities = initialize.main(sys.argv[1:])
 
     if inputfile:
-        refined_text = initialize.preprocess.preprocess_text(str(inputfile))
+        refined_text = initialize.getEntity.preprocess_text(str(inputfile))
 
         dataEntities, numberOfPairs = initialize.getEntity.get_entity(refined_text)
 
