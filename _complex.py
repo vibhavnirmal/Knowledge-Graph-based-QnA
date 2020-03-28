@@ -1,6 +1,6 @@
 import spacy, re
 
-class Complexx:
+class ComplexFunc:
     """docstring for Tenses."""
 
     def __init__(self):
@@ -308,12 +308,13 @@ class Complexx:
                         sp_relation = relation
                         # print(relation)
                         if relation.nbor(1).pos_ in ('ADP', 'PART', 'VERB'):
-                            # print(relation.nbor(1).pos_)
                             if relation.nbor(2).dep_ in ('xcomp'):
-                                relation = ' '.join((str(relation), str(relation.nbor(1)), str(relation.nbor(2))))
+                                aux_relation = str(relation.nbor(2))
+                                relation = str(relation)+" "+str(relation.nbor(1))
                             else:# print(relation.nbor(2).dep_)
-                                relation = ' '.join((str(relation), str(relation.nbor(1))))
+                                relation = str(relation)
                                 # print(relation)
+
                         subject = [a for a in sp_relation.lefts if a.dep_ in ('subj', 'nsubj','nsubjpass')]  # identify subject nodes
                         # print(subject)
                         if subject:
@@ -328,7 +329,14 @@ class Complexx:
 
                     self.ent_pairs = []
                     # print(object, subject, relation)
-                    self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(object).lower()])
+                    if maybe_time and maybe_place:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str(maybe_time[0]).lower(), str("where").lower()])
+                    elif maybe_time:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str(maybe_time[0]).lower(), str("where").lower()])
+                    elif maybe_place:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str("").lower(), str("where").lower()])
+                    else:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str("").lower(), str("where").lower()])
                     # ent_pairs.append([str(subject), str(relation), str(object)])
                     # print(self.ent_pairs)
                     return self.ent_pairs
@@ -362,7 +370,14 @@ class Complexx:
 
                     self.ent_pairs = []
                     # print(object, subject, relation)
-                    self.ent_pairs.append([str(subject).lower(), str(relation).lower(), str(maybe_object[-1]).lower(), str("when")])
+                    if maybe_time and maybe_place:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str(maybe_time[0]).lower(), str(maybe_place[0]).lower()])
+                    elif maybe_time:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str(maybe_time[0]).lower(), str("").lower()])
+                    elif maybe_place:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str("").lower(), str(maybe_place[0]).lower()])
+                    else:
+                        self.ent_pairs.append([str(subject).lower(), str(relation).lower(),str(aux_relation).lower(), str(maybe_object[-1]).lower(), str("").lower(), str("").lower()])
                     # ent_pairs.append([str(subject), str(relation), str(object)])
                     # print(self.ent_pairs)
                     return self.ent_pairs

@@ -1,6 +1,6 @@
 import re, spacy
 import pandas as pd
-from _complex import Complexx
+from _complex import ComplexFunc
 from _resolvedep import change_nouns
 
 class GetEntity:
@@ -8,7 +8,7 @@ class GetEntity:
 
     def __init__(self):
         super(GetEntity, self).__init__()
-        self.complex = Complexx()
+        self.complex = ComplexFunc()
         self.nlp = spacy.load('en_core_web_sm')
         self.change = change_nouns()
 

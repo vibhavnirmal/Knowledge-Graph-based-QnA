@@ -72,10 +72,11 @@ class change_nouns:
                             flag = False
 
                         if pronoun:
-                            if str(pronoun[0]) in ('his','His', 'her','Her', 'its', 'Its'):
-                                new_word = str(prev_subjs[-1])+"\'s "+str(word)
+                            if len(pronoun) <= 2 and str(pronoun[0]) in ('his','His', 'her','Her', 'its', 'Its'):
+                                print(official_subject)
+                                new_word = str(official_subject)+"\'s"
                                 # print(new_word)
-                                sentences.append(str(sent).replace((str(pronoun[0])+ " " + str(word)), str(new_word)))
+                                sentences.append(str(sent).replace((str(pronoun[0])), str(new_word)))
                                 flag = False
                             elif len(pronoun)>2 and str(pronoun[0]) in ('his','His', 'her','Her', 'its', 'Its'):
                                 new_word = str(official_subject)+"\'s"
@@ -159,5 +160,5 @@ class change_nouns:
 
 if __name__ == "__main__":
     test = change_nouns()
-    sentences = test.resolved("Leonardo DiCaprio was born on November 11, 1974. He can do acting and producing. He has acted in biopics. His films have earned US$7.2 billion. He has won an Academy Award and three Golden Globe Awards. He was born in Los Angeles.")
+    sentences = test.resolved("Manchester City Football Club is based in Manchester. It competes in the Premier League. It was known as Ardwick Association Football Club. Manchester City Football Club is referred as The Centurions and The Fourmidables. Its home ground is located in east Manchester. Its home ground is also known as CityofManchesterStadium.")
     print(sentences)
