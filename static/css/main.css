@@ -1,0 +1,67 @@
+body{
+  margin-right: 100px;
+  margin-left: 100px;
+  font-family: serif;
+  color: black;
+  background-color: white;
+}
+
+.label{
+  background-color: gray;
+}
+
+#creaters{
+  font-size: 20px;
+}
+
+.di{
+  margin: 1px;
+  padding: 1px;
+  color: gray;
+}
+
+.nav{
+  border-bottom: 2px white solid;
+  position: static;
+}
+
+hr{
+  margin: 2px;
+  padding: 2px;
+}
+
+#mainTitle{
+  margin-top: 5px;
+  font-size: 32px;
+}
+
+.selectpara{
+  font-size: 12px;
+}
+
+#leftQues{
+  border-right: 1px gray solid;
+}
+
+#answer{
+  margin: 2px;
+}
+
+.bidaf, .ourP{
+  padding: 1px;
+}
+
+.mainclass{
+  margin: 5px;
+}
+
+.header{
+  text-align: left;
+}
+
+#btnSubmit, #btnClear{
+  width: 200px;
+  color: white;
+  font-size: 15px;
+  background-color: #0E4D92 ;
+}

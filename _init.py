@@ -49,8 +49,10 @@ if __name__ == "__main__":
     initialize = Main()
     inputfile, inputQue, showGraph, showEntities = initialize.main(sys.argv[1:])
 
+    input_file = open(inputfile,"r+")
+
     if inputfile:
-        refined_text = initialize.getEntity.preprocess_text(str(inputfile))
+        refined_text = initialize.getEntity.preprocess_text(input_file)
 
         dataEntities, numberOfPairs = initialize.getEntity.get_entity(refined_text)
 
