@@ -55,23 +55,23 @@ if __name__ == "__main__":
         refined_text = initialize.getEntity.preprocess_text(input_file)
 
         dataEntities, numberOfPairs = initialize.getEntity.get_entity(refined_text)
-
         """ getentity return dataentity[0] """
-        initialize.export.dumpdata(dataEntities[0])
+        if dataEntities:
+            initialize.export.dumpdata(dataEntities[0])
 
-        if showEntities in ('y', 'yes', 'true'):
-            print(dataEntities[0])
+            if showEntities in ('y', 'yes', 'true'):
+                print(dataEntities[0])
 
-        if showGraph in ('y', 'yes', 'true'):
-            initialize.graph.createGraph(dataEntities[0])
+            if showGraph in ('y', 'yes', 'true'):
+                initialize.graph.createGraph(dataEntities[0])
 
-        if inputQue:
-            outputAnswer = initialize.qna.findanswer(inputQue, numberOfPairs)
+            if inputQue:
+                outputAnswer = initialize.qna.findanswer(inputQue, numberOfPairs)
 
-            print("------------------------------------------------------------------------------------------------------------")
-            print("Question: ",inputQue)
-            print("Answer:   ",outputAnswer)
-            print("------------------------------------------------------------------------------------------------------------")
+                print("------------------------------------------------------------------------------------------------------------")
+                print("Question: ",inputQue)
+                print("Answer:   ",outputAnswer)
+                print("------------------------------------------------------------------------------------------------------------")
 
     else:
         print("No Input file detected")

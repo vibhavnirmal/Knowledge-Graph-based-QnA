@@ -161,7 +161,7 @@ class change_nouns:
 
                             if pronoun:
                                 if len(pronoun) <= 2 and str(pronoun[0]) in ('his','His', 'her','Her', 'its', 'Its'):
-                                    print(official_subject)
+                                    # print(official_subject)
                                     new_word = str(official_subject)+"\'s"
                                     # print(new_word)
                                     sentences.append(str(sent).replace((str(pronoun[0])), str(new_word)))

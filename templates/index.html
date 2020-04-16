@@ -13,7 +13,7 @@
     <div class="nav">
       <p id="mainTitle">Knowledge Graph representation with Question Answering</p>
       <div class="header">
-        <p id="creaters">Project by Vibhav Nirmal, Vedant Vachharajani, Stuti Sharma</p>
+        <p id="creaters">Project By: Vibhav Nirmal, Vedant Vachharajani, Stuti Sharma</p>
       </div>
     </div>
     <hr>
@@ -21,7 +21,6 @@
       <div class="disclaimer">
         <p class="di">Select a paragraph and write your own question.</p>
         <p class="di">The answer is always a subphrase of the paragraph.</p>
-        <p class="di">Our Model does not cover all types of sentences as we are in alpha stage.</p>
       </div>
       <form action="{{ url_for('submit') }}" method="post" role="form" id="myForm">
         <div class="row">
@@ -29,19 +28,18 @@
             <div class="row">
               <div class="col-md-2">
                 <h4><span class="label">Paragraph</span></h4>
-                <!-- <h4><span class="label label-default">Select Paragraph</span></h4> -->
               </div>
               <div class="col-md-10" style="padding-top: 10px;">
-                <select class="selectpara" name="para">
+                <select class="selectpara" name="para" style="width:450px;">
                   <option value="ownPara" default>Write Paragraph</option>
-                  <option value="dicaprio">DiCaprio</option>
-                  <option value="football">Manchester City Football Club</option>
-                  <option value="general">General</option>
+                  <!-- <option value="dicaprio">DiCaprio</option> -->
+                  <!-- <option value="football">Manchester City Football Club</option> -->
+                  <!-- <option value="general">General</option> -->
                 </select>
               </div>
             </div>
             <br>
-            <textarea placeholder="Select or write your own paragraph" style="resize:none" class="form-control" name="paragraph" id="paragraph" rows="3"></textarea>
+            <textarea placeholder="Select or write your own paragraph" style="resize:none" class="form-control" name="paragraph" id="paragraph" rows="3">{{ input_paragraph }}</textarea>
             <br>
             <div class="row">
               <div class="col-md-2">
@@ -49,20 +47,20 @@
                 <!-- <h4><span class="label label-default">Select Question</span></h4> -->
               </div>
               <div class="col-md-10" style="padding-top: 10px;">
-                <select class="selectpara" name="para">
+                <select class="selectpara" name="para" style="width:450px;">
                   <option value="ownQues" default>Write Question</option>
-                  <option value="dicaprio">Who acted in biopics?</option>
-                  <option value="football">Where is Manchester City Football Club located?</option>
-                  <option value="general">What did John buy?</option>
+                  <!-- <option value="dicaprio">Who acted in biopics?</option> -->
+                  <!-- <option value="football">Where is Manchester City Football Club located?</option> -->
+                  <!-- <option value="general">What did John buy?</option> -->
                 </select>
               </div>
             </div>
             <br>
-            <textarea placeholder="Select or ask your own question" style="resize:none" class="form-control" name="question" id="question" rows="1"></textarea>
+            <textarea placeholder="Select or ask your own question" style="resize:none" class="form-control" name="question" id="question" rows="1">{{ input_question }}</textarea>
 
             <br>
-            <button id="btnSubmit" type="submit" name="submit" class="btn btn-sm">Submit</button>
-            <button id="btnClear" type="clear" name="clear" class="btn btn-sm">Clear</button>
+            <input id="btnSubmit" type="submit" name="submit" value="submit" class="btn btn-sm">
+            <a href="{{ url_for('clear') }}"><button id="btnClear" type="button" name="clear" class="btn btn-sm">Clear</button></a>
     			</div>
 
           <div class="col-md-4" id="rightAns">
@@ -71,13 +69,9 @@
                   <br>
                   <div class="ourP">
                     <h5>Our Model's Answer</h5>
-                    <textarea placeholder="Our Projected Answer" style="resize:none" class="form-control" id="answer" rows="1" readonly>{{ my_answer }}</textarea>
+                    <textarea placeholder="Our Projected Answer" style="resize:none" class="form-control" id="answer1" rows="1" readonly>{{ my_answer }}</textarea>
                   </div>
-                  <br><br>
-                  <div class="bidaf">
-                    <h5>BIDAF Answer</h5>
-                    <textarea placeholder="BIDAF Model Answer" style="resize:none" class="form-control" id="answer" rows="1" readonly></textarea>
-                  </div>
+                  <br>
               </div>
           </div>
     		</div>
@@ -85,20 +79,13 @@
     </div>
     <br>
     <div class="about">
-      <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThis project's main objective is to implement different and novel approaches to autonomous question answering systems. Here we are evaluating the advantages and disadvantages of the two different methods. We are studying each approach methodically in order to generate the best case results under which each scenario, that can be used to solve queries and answer the questions efficiently.</p>
+      <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThis project's main objective is to implement different and novel approaches to autonomous question answering systems.</p>
     </div>
-    <br>
-    <div>
-			<p>Reference : <a href="https://seominjoon.github.io" target="_blank">Minjoon Seo</a>, <a href="http://allenai.org/team/anik/papers.html" target="_blank">Aniruddha Kembhavi</a>, <a href="https://homes.cs.washington.edu/~ali/index.html" target="_blank">Ali Farhadi</a>, <a href="https://ssli.ee.washington.edu/~hannaneh/index.html" target="_blank">Hannaneh Hajishirzi</a>. "Bidirectional Attention Flow for Machine Comprehension" [<a href="https://arxiv.org/abs/1611.01603" target="_blank">link</a>]</p>
-		</div>
-    <br>
     <script type="text/javascript">
       document.getElementById("myForm").reset();
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../static/jquery-3.1.0.min.js"></script>
     <script src="../static/jszip.min.js"></script>
-    <!-- <script src="../static/index.js"></script> -->
-
   </body>
 </html>
