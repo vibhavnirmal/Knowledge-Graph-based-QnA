@@ -15,7 +15,7 @@ For example:
 `python3 _init.py -i new.txt -q "Who ate chocolate?"`
 
 Also, in order to use the web interface of the QA system:
-`python3 _app.py` and use <https://0.0.0.0/20550> as the URL in your browser
+`python3 _app.py` and use <http://0.0.0.0:20550/> as the URL in your browser
 
 [Youtube Demo](https://youtu.be/u9Nr8wjTPZ8)
 
