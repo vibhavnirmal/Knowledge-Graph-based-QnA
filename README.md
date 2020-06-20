@@ -82,7 +82,7 @@ The extracted entity pairs are stored in database.json file
 It creates the graph of the information extracted using NetworkX.The source and destination are used as nodes whereas relations are used as the edges.
 
 
-## qna.py ##
+### qna.py ###
 This involves matching of the entity pairs from the JSON file and that from the question using **findanswer(question)** function.
 
 
