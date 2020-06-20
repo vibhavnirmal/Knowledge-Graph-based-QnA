@@ -4,8 +4,16 @@ We try to combine two significant approaches to a Question Answering System. The
 
 Simply run in terminal,
 
-'python3 init.py -i <Text File> -q <Question with " ">'
+`pip3 -r install requirements.txt`
+
+Followed by:
+
+`python3 _init.py -i <Text File> -q <Question with " ">`
 
 For example:
 
-'python3 init.py -i new.txt -q "Who ate chocolate?"'
+`python3 _init.py -i new.txt -q "Who ate chocolate?"`
+
+[Youtube Demo](https://youtu.be/u9Nr8wjTPZ8)
+
+[BiDAF](https://allenai.github.io/bi-att-flow/)
