@@ -86,5 +86,9 @@ It creates the graph of the information extracted using NetworkX.The source and 
 This involves matching of the entity pairs from the JSON file and that from the question using **findanswer(question)** function.
 
 
-
-
+## Constraints of this Question Answering System ##
+* Rules for only limited sentences have been defined
+* Can answer only four types of questions
+* Sentences with complex structure have not been implemented yet
+* Sentences with the similar meaning but different structure will generate redundant entities
+* Extraction of entities takes into account the dependency tree of the sentence as the concept is highly dependent on parsing of dependency trees 
