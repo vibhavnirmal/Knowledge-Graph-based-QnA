@@ -17,6 +17,10 @@ For example:
 Also, in order to use the web interface of the QA system:
 `python3 _app.py` and use <http://0.0.0.0:20550/> as the URL in your browser
 
+To visualize the knowledge graph of input file, using the following flag to run init.py
+
+`python3 _init.py -i new.txt -g yes`
+
 [Youtube Demo](https://youtu.be/u9Nr8wjTPZ8)
 
 [BiDAF](https://allenai.github.io/bi-att-flow/)
