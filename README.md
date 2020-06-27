@@ -94,7 +94,7 @@ This involves matching of the entity pairs from the JSON file and that from the 
 * Extraction of entities takes into account the dependency tree of the sentence as the concept is highly dependent on parsing of dependency trees 
 
 ## Creators
-**Final Year Project from LD College Of Engineering**
+**Final Year Project: LD College Of Engineering**
 * [Vedant Vachharajani](https://www.linkedin.com/in/vvedant99/)
 * [Stuti Sharma](https://www.linkedin.com/in/stuti-sharma-86aa68175/)
 * [Vibhav Nirmal](https://www.linkedin.com/in/vibhavnirmal/)
