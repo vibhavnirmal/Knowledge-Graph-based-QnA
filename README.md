@@ -55,8 +55,8 @@ The dependencies from sentences are extracted using:
 
 
 The dependencies from questions are extracted using:
-1. **question_pairs(question) **
-2. **get_time_place_from_sent(sentence) **
+1. **question_pairs(question)**
+2. **get_time_place_from_sent(sentence)**
 
 ### exportParis.py ###
 
