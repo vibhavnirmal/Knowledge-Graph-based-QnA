@@ -1,8 +1,13 @@
-import spacy
+import json
+import re
+
+import inflect
 import pandas as pd
-import json, re, inflect
-from _getentitypair import GetEntity
-from _complex import ComplexFunc
+import spacy
+
+from kwQnA._complex import ComplexFunc
+from kwQnA._getentitypair import GetEntity
+
 
 class QuestionAnswer:
     """docstring for QuestionAnswer."""
@@ -16,8 +21,8 @@ class QuestionAnswer:
     def findanswer(self, question, c):
         p = self.complex.question_pairs(question)
 
-        if p == []:
-            return None
+        if p == [] or p == None:
+            return "Not Applicable"
 
         pair = p[0]
         # print(pair[5])

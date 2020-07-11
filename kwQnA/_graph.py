@@ -1,7 +1,9 @@
-import networkx as nx
 import matplotlib.pyplot as plt
+import networkx as nx
 import pandas as pd
-from _getentitypair import GetEntity
+
+from kwQnA._getentitypair import GetEntity
+
 
 class GraphEnt:
     """docstring for graphEnt."""

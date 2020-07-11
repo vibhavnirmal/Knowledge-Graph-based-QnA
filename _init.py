@@ -1,9 +1,11 @@
-import sys
 import getopt
-from _getentitypair import GetEntity
-from _qna import QuestionAnswer
-from _exportPairs import exportToJSON
-from _graph import GraphEnt
+import sys
+
+from kwQnA._exportPairs import exportToJSON
+from kwQnA._getentitypair import GetEntity
+from kwQnA._graph import GraphEnt
+from kwQnA._qna import QuestionAnswer
+
 
 class Main:
     """docstring for Main."""

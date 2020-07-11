@@ -1,10 +1,12 @@
 import json
 from datetime import datetime
+
 import pandas
-from _exportPairs import exportToJSON
-from _getentitypair import GetEntity
-from _qna import QuestionAnswer
 from flask import Flask, jsonify, redirect, render_template, request, url_for
+
+from kwQnA._exportPairs import exportToJSON
+from kwQnA._getentitypair import GetEntity
+from kwQnA._qna import QuestionAnswer
 
 app = Flask(__name__)
 

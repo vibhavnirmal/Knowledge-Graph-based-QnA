@@ -1,7 +1,11 @@
-import re, spacy
+import re
+
 import pandas as pd
-from _complex import ComplexFunc
-from _resolvedep import change_nouns
+import spacy
+
+from kwQnA._complex import ComplexFunc
+from kwQnA._resolvedep import change_nouns
+
 
 class GetEntity:
     """docstring for GetEntity."""

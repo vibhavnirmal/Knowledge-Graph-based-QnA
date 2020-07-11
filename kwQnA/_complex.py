@@ -1,5 +1,7 @@
-import spacy
 import re
+
+import spacy
+
 
 class ComplexFunc:
     # """docstring for Tenses."""
