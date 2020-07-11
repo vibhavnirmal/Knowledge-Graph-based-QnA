@@ -1,5 +1,11 @@
 # Knowledge-Graph-based-QnA
 
+[![CodeFactor](https://www.codefactor.io/repository/github/vibhavnirmal/knowledge-graph-based-qna/badge)](https://www.codefactor.io/repository/github/vibhavnirmal/knowledge-graph-based-qna)
+[![GitHub stars](https://img.shields.io/github/stars/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/network)
+[![GitHub license](https://img.shields.io/github/license/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/blob/master/LICENSE)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+
 Our objectives of the project can be outlined as:
 
 1. To implement different, novel approaches to intelligent question answering system
