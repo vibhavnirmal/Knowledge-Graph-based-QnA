@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, request, jsonify, redirect
+import json
+from datetime import datetime
+import pandas
+from _exportPairs import exportToJSON
 from _getentitypair import GetEntity
 from _qna import QuestionAnswer
-from _exportPairs import exportToJSON
-import json, pandas
-from datetime import datetime
+from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
