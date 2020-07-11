@@ -41,8 +41,7 @@ class OurModel:
             if outputAnswer == []:
                 return None
             return outputAnswer
-        else:
-            return None
+        return None
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -74,4 +73,4 @@ def submit():
     return render_template('index.html', my_answer=my_answer, input_paragraph=input_paragraph ,input_question=input_question)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, threaded=True)
+    app.run(host="0.0.0.0", port=20550, threaded=True)

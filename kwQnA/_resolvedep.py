@@ -58,7 +58,7 @@ class change_nouns:
                             break
                         elif word.dep_ in ('nsubj','subj'):
                             if word_dep_count_subj > 0:
-                                """ IN prime minister it gives compound and then nmod """
+                                # """ IN prime minister it gives compound and then nmod """
                                 if word.dep_ in ('compound') or word.dep_ in ('nmod', 'amod'):
                                     if compound_is == "":
                                         compound_is = str(word)
@@ -215,8 +215,7 @@ class change_nouns:
             if check:
                 # print(depen, x)
                 return True, depen, x
-            else:
-                pass
+            pass
 
         return False, [], 0
 

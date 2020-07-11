@@ -21,7 +21,7 @@ class QuestionAnswer:
     def findanswer(self, question, c):
         p = self.complex.question_pairs(question)
 
-        if p == [] or p == None:
+        if p == [] or p is None:
             return "Not Applicable"
 
         pair = p[0]
@@ -97,8 +97,7 @@ class QuestionAnswer:
             answer_subj = ",".join(subList)
             if answer_subj == "":
                 return "None"
-            else:
-                return answer_subj
+            return answer_subj
 
         elif pair[3] in ['what']:
             subjectQ = pair[0]
@@ -140,8 +139,7 @@ class QuestionAnswer:
             answer_obj = ",".join(subList)
             if answer_obj == "":
                 return "None"
-            else:
-                return answer_obj
+            return answer_obj
 
         elif pair[4] in ['when']:
             subjectQ = pair[0]
@@ -180,14 +178,12 @@ class QuestionAnswer:
                                 # elif extraIN == "in" or extraIN == "on":
                                     # answer_obj = loaded[str(i)]["target"]
                                     return answer_obj
-                                else:
-                                    return None
+                                return None
                         else:
                             if loaded[str(i)]["time"] != '':
                                 answer_obj = loaded[str(i)]["time"]
                                 return answer_obj
-                            else:
-                                return None
+                            return None
 
         elif pair[5] in ['where']:
             subjectQ = pair[0]
@@ -206,18 +202,15 @@ class QuestionAnswer:
                                 if answer_obj in (" ",""):
                                     if int(i)<int(len(loaded)-1):
                                         pass
-                                    else:
-                                        return None
+                                    return None
                                 else:
                                     return answer_obj
-                            else:
-                                return None
+                            return None
                         else:
                             answer_obj = loaded[str(i)]["place"]
                             if answer_obj in (" ",""):
                                 if int(i)<int(len(loaded)-1):
                                     pass
-                                else:
-                                    return None
+                                return None
                             else:
                                 return answer_obj

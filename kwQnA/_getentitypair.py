@@ -20,9 +20,9 @@ class GetEntity:
         text_strip = [text.strip() for text in input_file]
         preprocessed_text = [text for text in text_strip if text not in ('', ' ')]
         text = " ".join(preprocessed_text)
-        """ ADDED CUSTOM SCRIPT """
+        # """ ADDED CUSTOM SCRIPT """
         text = self.change.resolved(text)
-        """ ___________________ """
+        # """ ___________________ """
         text = self.nlp(text)
         return text
 
@@ -51,9 +51,8 @@ class GetEntity:
                 final_entity_pairs.append(pairs)
 
         if final_entity_pairs:
-            return final_entity_pairs, number_of_ent_pairs
-        else:
-            return None, None
+            return final_entity_pairs, number_of_ent_pairs    
+        return None, None
 
 if __name__ == '__main__':
     test = GetEntity()
