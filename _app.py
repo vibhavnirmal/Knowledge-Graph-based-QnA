@@ -51,9 +51,9 @@ def main():
 def clear():
     return redirect(url_for('main'))
 
-@app.route('/select', methods=['GET', 'POST'])
-def select():
-    return jsonify(result={"titles" : titles, "contextss" : contextss, "context_questions" : context_questions})
+# @app.route('/select', methods=['GET', 'POST'])
+# def select():
+#     return jsonify(result={"titles" : titles, "contextss" : contextss, "context_questions" : context_questions})
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
@@ -72,4 +72,4 @@ def submit():
     return render_template('index.html', my_answer=my_answer, input_paragraph=input_paragraph ,input_question=input_question)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=20550, threaded=True)
+    app.run(host="0.0.0.0", port=8080, threaded=True)

@@ -1,4 +1,5 @@
-import sys, getopt
+import sys
+import getopt
 from _getentitypair import GetEntity
 from _qna import QuestionAnswer
 from _exportPairs import exportToJSON

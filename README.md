@@ -6,6 +6,8 @@ Simply run in terminal:
 
 `pip3 -r install requirements.txt`
 
+`spacy download en_core_web_sm`
+
 Followed by:
 
 `python3 _init.py -i <Text File> -q <Question with " ">`
