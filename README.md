@@ -1,6 +1,23 @@
 # Knowledge-Graph-based-QnA
 
-We try to combine two significant approaches to a Question Answering System. These two distinct approaches have proved to provide answers to the questions when we input a paragraph. The first approach is a Bidirectional Attention Flow (BiDAF) model for Machine Comprehension. It uses the attention flow mechanism and bi-directional Long Short Term Memory (LSTM) in its architecture. It has been trained on Stanford Question Answering Dataset (SQuAD). The other approach is Entity pairs Extraction and Knowledge Graph Construction. This method extracts entities from each sentence of the paragraph and constructs a knowledge graph which are used to answer the questions inputted by the user.
+Our objectives of the project can be outlined as:
+
+1. To implement different, novel approaches to intelligent question answering system
+2. To study different approaches in order to generate the best cases under which one method outperforms another
+3. To solve queries and answer questions efficiently from a given context
+
+Our approach is Entity pairs Extraction and Knowledge Graph Construction. This method extracts entities from each sentence of the paragraph and constructs a knowledge graph which are used to answer the questions inputted by the user.
+
+Key Points:
+
+* Involves extraction of entities in the form of subject, predicate and object
+* Uses dependency parsing tools and methods
+* Entities are used to extract answers from the questions asked by user
+* The approach works with questions in the form of ‘who’, ‘what’, ‘when’ and ‘where’
+* To extract answers, we match common entities from questions and the context
+* As of now, the answers obtained are simple and in limited number of words
+
+## To run the program
 
 Simply run in terminal:
 
@@ -96,7 +113,7 @@ This involves matching of the entity pairs from the JSON file and that from the 
 * Extraction of entities takes into account the dependency tree of the sentence as the concept is highly dependent on parsing of dependency trees 
 
 ## Creators
-**Final Year Project: LD College Of Engineering**
+**Final Year Project from LD College Of Engineering**
 * [Vedant Vachharajani](https://www.linkedin.com/in/vvedant99/)
 * [Stuti Sharma](https://www.linkedin.com/in/stuti-sharma-86aa68175/)
 * [Vibhav Nirmal](https://www.linkedin.com/in/vibhavnirmal/)
