@@ -16,7 +16,7 @@ class GetEntity:
         self.nlp = spacy.load('en_core_web_sm')
         self.change = change_nouns()
 
-    def preprocess_text(self, input_file, coref = True):
+    def preprocess_text(self, input_file):
         text_strip = [text.strip() for text in input_file]
         preprocessed_text = [text for text in text_strip if text not in ('', ' ')]
         text = " ".join(preprocessed_text)

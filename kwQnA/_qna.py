@@ -203,14 +203,12 @@ class QuestionAnswer:
                                     if int(i)<int(len(loaded)-1):
                                         pass
                                     return None
-                                else:
-                                    return answer_obj
-                            return None
-                        else:
-                            answer_obj = loaded[str(i)]["place"]
-                            if answer_obj in (" ",""):
-                                if int(i)<int(len(loaded)-1):
-                                    pass
-                                return None
-                            else:
                                 return answer_obj
+                            return None
+                        
+                        answer_obj = loaded[str(i)]["place"]
+                        if answer_obj in (" ",""):
+                            if int(i)<int(len(loaded)-1):
+                                pass
+                            return None
+                        return answer_obj
