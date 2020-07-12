@@ -27,7 +27,7 @@ Key Points:
 
 Simply run in terminal:
 
-`pip3 -r install requirements.txt`
+`pip3 install -r requirements.txt`
 
 `spacy download en_core_web_sm`
 
