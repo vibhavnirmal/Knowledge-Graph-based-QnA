@@ -83,7 +83,7 @@ The dependencies from questions are extracted using:
 1. **question_pairs(question)**
 2. **get_time_place_from_sent(sentence)**
 
-### exportParis.py ###
+### exportPairs.py ###
 
 Entity pairs extracted as pandas dataframe object in the format of (“source”,”relation”,”aux_relation”,”target”,”time”,”place”) are sent to the JSON file using the dumpdata(pairs) function. This JSON file will then be used to extract the answers using entity matching.
 
