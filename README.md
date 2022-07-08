@@ -120,8 +120,8 @@ This involves matching of the entity pairs from the JSON file and that from the 
 * Sentences with the similar meaning but different structure will generate redundant entities
 * Extraction of entities takes into account the dependency tree of the sentence as the concept is highly dependent on parsing of dependency trees 
 
-## Creators
-**Final Year Project from LD College Of Engineering**
+## Developers
+**Final Year Project from LD College Of Engineering 2020**
 * [Vedant Vachharajani](https://www.linkedin.com/in/vvedant99/)
 * [Stuti Sharma](https://www.linkedin.com/in/stuti-sharma-86aa68175/)
 * [Vibhav Nirmal](https://www.linkedin.com/in/vibhavnirmal/)
