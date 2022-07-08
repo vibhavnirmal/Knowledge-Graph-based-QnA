@@ -1,7 +1,7 @@
-import json
+# import json
 from datetime import datetime
 
-import pandas
+# import pandas
 from flask import Flask, jsonify, redirect, render_template, request, url_for
 
 from kwQnA._exportPairs import exportToJSON
