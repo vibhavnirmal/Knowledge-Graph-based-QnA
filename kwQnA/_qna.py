@@ -2,7 +2,7 @@ import json
 import re
 
 import inflect
-import pandas as pd
+# import pandas as pd
 import spacy
 
 from kwQnA._complex import ComplexFunc

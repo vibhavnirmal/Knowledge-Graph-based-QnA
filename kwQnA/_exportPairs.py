@@ -1,6 +1,5 @@
-import json
-
-import pandas
+# import json
+# import pandas
 
 
 class exportToJSON:
@@ -11,7 +10,7 @@ class exportToJSON:
 
     def dumpdata(self, pairs):
         
-        my_data = pairs.to_json('database.json', orient='index')
+        my_data = pairs.to_json('extra/database.json', orient='index')
         # print(my_data)
 
 class exportToCSV:

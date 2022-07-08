@@ -1,5 +1,4 @@
-import re
-
+# import re
 import spacy
 
 
@@ -299,7 +298,7 @@ class ComplexFunc:
                     elif str(obj) in maybe_place and str(obj.nbor(-1)) != "of":
                         object_list.append(str(obj))
                     else:
-                        if str(obj) in time and object_list == []:
+                        if str(obj) in maybe_time and object_list == []:
                             object_list.append(str(obj))
 
 

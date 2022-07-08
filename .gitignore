@@ -130,5 +130,4 @@ dmypy.json
 .vscode/
 
 database.json
-old/
-currentTODO.txt
+extra/
