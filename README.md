@@ -6,6 +6,8 @@
 [![GitHub license](https://img.shields.io/github/license/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/blob/master/LICENSE)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
+![testImg](docs/test_1.png)
+
 Our objectives of the project can be outlined as:
 
 1. To implement different, novel approaches to intelligent question answering system
