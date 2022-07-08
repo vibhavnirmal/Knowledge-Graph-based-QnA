@@ -32,8 +32,9 @@ class GraphEnt:
         G=nx.from_pandas_edgelist(kg_df, "source", "target", edge_attr=True, create_using=nx.MultiDiGraph())
 
         plt.figure(figsize=(12,12))
-        pos = nx.spring_layout(G, k = 0.5) # k regulates the distance between nodes
-        ff =nx.draw(G, with_labels=True, node_color='skyblue', node_size=1500, edge_cmap=plt.cm.Blues, pos = pos)
+        pos = nx.spring_layout(G, k = 2) # k regulates the distance between nodes
+        nx.draw(G, with_labels=True, node_color='skyblue', node_size=1500, edge_cmap=plt.cm.Blues, pos = pos)
+        # nx.draw_networkx_edge_labels(G,pos,edge_labels=labels,font_size=30)
 
         plt.show()
 
