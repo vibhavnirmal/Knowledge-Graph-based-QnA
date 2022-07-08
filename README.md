@@ -39,14 +39,14 @@ Followed by:
 
 For example:
 
-`python3 _init.py -i new.txt -q "Who ate chocolate?"`
+`python3 _init.py -i data.txt -q "Who ate chocolate?"`
 
 Also, in order to use the web interface of the QA system:
 `python3 _app.py` and use <http://0.0.0.0:20550/> as the URL in your browser
 
 To visualize the knowledge graph of input file, use the following flag to run init.py
 
-`python3 _init.py -i new.txt -g yes`
+`python3 _init.py -i data.txt -g yes`
 
 Here's the 
 * [Youtube Demo](https://youtu.be/u9Nr8wjTPZ8)
