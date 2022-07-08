@@ -27,7 +27,7 @@ class QuestionAnswer:
         pair = p[0]
         # print(pair[5])
 
-        f = open("database.json","r", encoding="utf8")
+        f = open("extra/database.json","r", encoding="utf8")
         listData = f.readlines()
 
         relQ = []
