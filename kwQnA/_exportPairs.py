@@ -1,5 +1,6 @@
 # import json
 # import pandas
+import os
 
 
 class exportToJSON:
@@ -9,7 +10,10 @@ class exportToJSON:
         super(exportToJSON, self).__init__()
 
     def dumpdata(self, pairs):
-        
+        if os.path.exists(os.path.join(os.getcwd(), 'extra')):
+                pass
+        else:
+                os.makedirs('extra')
         my_data = pairs.to_json('extra/database.json', orient='index')
         # print(my_data)
 
