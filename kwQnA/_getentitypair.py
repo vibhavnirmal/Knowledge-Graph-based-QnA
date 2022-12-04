@@ -28,7 +28,7 @@ class GetEntity:
 
     def get_entity(self, text):
         ent_pairs, final_entity_pairs = [],[]
-        sentences = [one_sentence.string.strip() for one_sentence in text.sents]
+        sentences = [one_sentence.text.strip() for one_sentence in text.sents]
 
         for one_sentence in sentences:
             final_entity_pairs = []
