@@ -4,6 +4,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/network)
 [![GitHub license](https://img.shields.io/github/license/vibhavnirmal/Knowledge-Graph-based-QnA)](https://github.com/vibhavnirmal/Knowledge-Graph-based-QnA/blob/master/LICENSE)
+[![DOI](https://zenodo.org/badge/247225848.svg)](https://zenodo.org/badge/latestdoi/247225848)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 ![testImg](docs/test_1.png)
